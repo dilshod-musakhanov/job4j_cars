@@ -1,83 +1,131 @@
 package ru.job4j.cars.repository;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j;
+import org.springframework.stereotype.Repository;
 import ru.job4j.cars.model.User;
 
 import java.util.*;
 
+@Repository
 @AllArgsConstructor
+@Log4j
 public class UserRepository {
     private final CrudRepository crudRepository;
 
     /**
-     * Сохранить в базе.
-     * @param user пользователь.
-     * @return пользователь с id.
+     * Save User in database.
+     * @param user User.
+     * @return Optional User with id or Empty Optional.
      */
-    public User create(User user) {
-        crudRepository.run(session -> session.persist(user));
-        return user;
+    public Optional<User> save(User user) {
+        try {
+            crudRepository.run(session -> session.persist(user));
+            return Optional.of(user);
+        } catch (Exception e) {
+            log.error("Exception in saving User: " + e);
+        }
+        return Optional.empty();
     }
 
     /**
-     * Обновить в базе пользователя.
-     * @param user пользователь.
+     * Update User in database.
+     * @param user User.
+     * @return boolean result
      */
-    public void update(User user) {
-        crudRepository.run(session -> session.merge(user));
+    public boolean update(User user) {
+        try {
+            crudRepository.run(session -> session.merge(user));
+            return true;
+        } catch (Exception e) {
+            log.error("Exception in updating User " + e);
+        }
+        return false;
     }
 
     /**
-     * Удалить пользователя по id.
+     * Delete User by ID.
      * @param userId ID
+     * @return boolean result
      */
-    public void delete(int userId) {
-        crudRepository.run(
-                "delete from User where id = :fId",
-                Map.of("fId", userId)
-        );
+    public boolean delete(int userId) {
+        try {
+            crudRepository.run(
+                    "DELETE FROM User WHERE id = :fId",
+                    Map.of("fId", userId)
+            );
+            return true;
+        } catch (Exception e) {
+            log.error("Exception in deleting User by id" + e);
+        }
+        return false;
     }
 
     /**
-     * Список пользователь отсортированных по id.
-     * @return список пользователей.
+     * List of Users sorted by ID.
+     * @return List of Users.
      */
     public List<User> findAllOrderById() {
-        return crudRepository.query("from User order by id asc", User.class);
+        try {
+            return crudRepository.query("FROM User ORDER BY id ASC", User.class);
+        } catch (Exception e) {
+            log.error("Exception in finding all order by id " + e);
+        }
+        return Collections.emptyList();
     }
 
     /**
-     * Найти пользователя по ID
-     * @return пользователь.
+     * Find User by ID
+     * @param userId ID
+     * @return Optional User or Empty Optional.
      */
-    public Optional<User> findById(int id) {
-        return crudRepository.optional(
-                "from User where id = :fId", User.class,
-                Map.of("fId", id)
-        );
+    public Optional<User> findById(int userId) {
+        try {
+            return crudRepository.optional(
+                    "FROM User WHERE id = :fId",
+                    User.class,
+                    Map.of("fId", userId)
+            );
+        } catch (Exception e) {
+            log.error("Exception in finding User by id: " + userId + " " + e);
+        }
+        return Optional.empty();
     }
 
     /**
-     * Список пользователей по login LIKE %key%
+     * List of Users by login LIKE %key%
      * @param key key
-     * @return список пользователей.
+     * @return List of Users or Empty List.
      */
     public List<User> findByLikeLogin(String key) {
-        return crudRepository.query(
-                "from User where login like :fKey", User.class,
-                Map.of("fKey", "%" + key + "%")
-        );
+        String likePattern = String.format("%%%s%%", key);
+       try {
+           return crudRepository.query(
+                   "FROM User WHERE login like :fKey",
+                   User.class,
+                   Map.of("fKey", likePattern)
+           );
+       } catch (Exception e) {
+           log.error("Exception in finding by like login " + e);
+       }
+       return Collections.emptyList();
     }
 
     /**
-     * Найти пользователя по login.
+     * Find User by login.
      * @param login login.
-     * @return Optional or user.
+     * @return Optional User or Empty Optional.
      */
     public Optional<User> findByLogin(String login) {
-        return crudRepository.optional(
-                "from User where login = :fLogin", User.class,
-                Map.of("fLogin", login)
-        );
+        try {
+            return crudRepository.optional(
+                    "FROM User WHERE login = :fLogin",
+                    User.class,
+                    Map.of("fLogin", login)
+            );
+        } catch (Exception e) {
+            log.error("Exception in finding by login " + e);
+        }
+        return Optional.empty();
     }
 }

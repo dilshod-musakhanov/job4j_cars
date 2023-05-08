@@ -22,7 +22,7 @@ public class Owner {
     private String name;
 
     @OneToOne
-    @JoinColumn(name = "auto_user_id")
+    @JoinColumn(name = "user_id")
     private User user;
 
 }
