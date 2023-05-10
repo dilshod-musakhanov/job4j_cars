@@ -5,6 +5,7 @@ import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Repository;
 import ru.job4j.cars.model.Post;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
@@ -98,4 +99,54 @@ public class PostRepository {
         }
         return Collections.emptyList();
     }
+
+    /**
+     * Find Posts created on the previous day
+     * @return List of Posts or Empty List
+     */
+    public Collection<Post> findByCreatedPreviousDay() {
+        try {
+            LocalDateTime previousDay = LocalDateTime.now().minusDays(1);
+            return crudRepository.query(
+                    "FROM Post WHERE created = :fCreated",
+                    Post.class,
+                    Map.of("fCreated", previousDay)
+            );
+        } catch (Exception e) {
+            log.error("Exception in finding Posts created the previous day " + e);
+        }
+        return Collections.emptyList();
+    }
+
+    /**
+     * Find Posts as per Car name
+     * @param carName name
+     * @return List of Posts or Empty List
+     */
+    public Collection<Post> findByCarName(String carName) {
+        try {
+            return crudRepository.query(
+                    "FROM Post AS p JOIN FETCH p.car AS c WHERE c.name = :fName",
+                    Post.class,
+                    Map.of("fName", carName)
+            );
+        } catch (Exception e) {
+            log.error("Exception in finding Posts by Car name " + e);
+        }
+        return Collections.emptyList();
+    }
+
+    public Collection<Post> findWithPhotos() {
+        try {
+            return crudRepository.query(
+                    "FROM Post AS p JOIN FETCH p.photos WHERE size(photos) > 0",
+                    Post.class
+            );
+        } catch (Exception e) {
+            log.error("Exception in finding Posts by Car name " + e);
+        }
+        return Collections.emptyList();
+    }
+
 }
+
