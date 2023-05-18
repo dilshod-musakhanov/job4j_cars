@@ -90,7 +90,7 @@ public class CarRepository {
     public Collection<Car> findAll() {
         try {
             var allCars = crudRepository.query(
-                    "FROM Car AS c JOIN FETCH c.engine JOIN FETCH c.owners",
+                    "FROM Car",
                     Car.class
             );
             return allCars;

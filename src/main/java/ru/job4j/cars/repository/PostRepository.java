@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import ru.job4j.cars.model.Post;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
@@ -107,10 +108,12 @@ public class PostRepository {
     public Collection<Post> findByCreatedPreviousDay() {
         try {
             LocalDateTime previousDay = LocalDateTime.now().minusDays(1);
+            LocalDateTime startOfDay = previousDay.with(LocalTime.MIN);
+            LocalDateTime endOfDay = previousDay.with(LocalTime.MAX);
             return crudRepository.query(
-                    "FROM Post WHERE created = :fCreated",
+                    "FROM Post WHERE created >= :startOfDay AND created <= :endOfDay",
                     Post.class,
-                    Map.of("fCreated", previousDay)
+                    Map.of("startOfDay", startOfDay, "endOfDay", endOfDay)
             );
         } catch (Exception e) {
             log.error("Exception in finding Posts created the previous day " + e);
@@ -139,11 +142,11 @@ public class PostRepository {
     public Collection<Post> findWithPhotos() {
         try {
             return crudRepository.query(
-                    "FROM Post AS p JOIN FETCH p.photos WHERE size(photos) > 0",
+                    "FROM Post AS p WHERE EXISTS (SELECT 1 FROM Photo ph WHERE ph.post = p)",
                     Post.class
             );
         } catch (Exception e) {
-            log.error("Exception in finding Posts by Car name " + e);
+            log.error("Exception in finding Posts with Photo " + e);
         }
         return Collections.emptyList();
     }

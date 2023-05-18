@@ -51,7 +51,7 @@ public class OwnerRepository {
      * @param id ID
      * @return boolean result
      */
-    private boolean delete(int id) {
+    public boolean delete(int id) {
         try {
             crudRepository.run(
                     "DELETE Owner WHERE id = :fId",
