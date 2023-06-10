@@ -24,6 +24,23 @@ public class Car {
     private int id;
 
     private String name;
+    private int produced;
+
+    @ManyToOne
+    @JoinColumn(name = "body_id", foreignKey = @ForeignKey(name = "BODY_ID_FK"))
+    private Body body;
+
+    @ManyToOne
+    @JoinColumn(name = "brand_id", foreignKey = @ForeignKey(name = "BRAND_ID_FK"))
+    private Brand brand;
+
+    @ManyToOne
+    @JoinColumn(name = "transmission_id", foreignKey = @ForeignKey(name = "TRANSMISSION_ID_FK"))
+    private Transmission transmission;
+
+    @ManyToOne
+    @JoinColumn(name = "fuel_id", foreignKey = @ForeignKey(name = "FUEL_ID_FK"))
+    private Fuel fuel;
 
     @ManyToOne
     @JoinColumn(name = "engine_id", foreignKey = @ForeignKey(name = "ENGINE_ID_FK"))

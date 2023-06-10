@@ -26,6 +26,16 @@ public class Post {
 
     private String description;
     private LocalDateTime created = LocalDateTime.now();
+    private int price;
+
+    @Column(name = "car_sold")
+    private boolean carSold = false;
+
+    @Column(name = "car_new")
+    private boolean carNew;
+
+    private String location;
+    private int mileage;
 
     @ManyToOne
     @JoinColumn(name = "auto_user_id")
