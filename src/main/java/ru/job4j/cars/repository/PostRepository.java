@@ -7,10 +7,7 @@ import ru.job4j.cars.model.Post;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Repository
 @AllArgsConstructor
@@ -88,7 +85,7 @@ public class PostRepository {
      * Find all Posts
      * @return List of Post
      */
-    public Collection<Post> findAll() {
+    public List<Post> findAll() {
         try {
             var allPosts = crudRepository.query(
                     "FROM Post",
@@ -105,7 +102,7 @@ public class PostRepository {
      * Find Posts created on the previous day
      * @return List of Posts or Empty List
      */
-    public Collection<Post> findByCreatedPreviousDay() {
+    public List<Post> findByCreatedPreviousDay() {
         try {
             LocalDateTime previousDay = LocalDateTime.now().minusDays(1);
             LocalDateTime startOfDay = previousDay.with(LocalTime.MIN);
@@ -126,7 +123,7 @@ public class PostRepository {
      * @param carName name
      * @return List of Posts or Empty List
      */
-    public Collection<Post> findByCarName(String carName) {
+    public List<Post> findByCarName(String carName) {
         try {
             return crudRepository.query(
                     "FROM Post AS p JOIN FETCH p.car AS c WHERE c.name = :fName",
@@ -139,7 +136,7 @@ public class PostRepository {
         return Collections.emptyList();
     }
 
-    public Collection<Post> findWithPhotos() {
+    public List<Post> findWithPhotos() {
         try {
             return crudRepository.query(
                     "FROM Post AS p WHERE EXISTS (SELECT 1 FROM Photo ph WHERE ph.post = p)",

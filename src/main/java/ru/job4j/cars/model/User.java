@@ -18,6 +18,10 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private int id;
-    private String login;
+
+    private String name;
+    @EqualsAndHashCode.Include
+    private String email;
+
     private String password;
 }

@@ -5,10 +5,7 @@ import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Repository;
 import ru.job4j.cars.model.Engine;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Repository
 @AllArgsConstructor
@@ -87,7 +84,7 @@ public class EngineRepository {
      * Find all Engines
      * @return List of Engines or Empty List
      */
-    public Collection<Engine> findAll() {
+    public List<Engine> findAll() {
         try {
             var allEngines = crudRepository.query(
                     "FROM Engine",

@@ -93,38 +93,38 @@ public class UserRepository {
     }
 
     /**
-     * List of Users by login LIKE %key%
+     * List of Users by name LIKE %key%
      * @param key key
      * @return List of Users or Empty List.
      */
-    public List<User> findByLikeLogin(String key) {
+    public List<User> findByLikeName(String key) {
         String likePattern = String.format("%%%s%%", key);
        try {
            return crudRepository.query(
-                   "FROM User WHERE login like :fKey",
+                   "FROM User WHERE name like :fKey",
                    User.class,
                    Map.of("fKey", likePattern)
            );
        } catch (Exception e) {
-           log.error("Exception in finding by like login " + e);
+           log.error("Exception in finding by like name " + e);
        }
        return Collections.emptyList();
     }
 
     /**
-     * Find User by login.
-     * @param login login.
+     * Find User by email.
+     * @param email email.
      * @return Optional User or Empty Optional.
      */
-    public Optional<User> findByLogin(String login) {
+    public Optional<User> findByEmail(String email) {
         try {
             return crudRepository.optional(
-                    "FROM User WHERE login = :fLogin",
+                    "FROM User WHERE email = :fEmail",
                     User.class,
-                    Map.of("fLogin", login)
+                    Map.of("fEmail", email)
             );
         } catch (Exception e) {
-            log.error("Exception in finding by login " + e);
+            log.error("Exception in finding by email " + e);
         }
         return Optional.empty();
     }

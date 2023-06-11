@@ -5,10 +5,7 @@ import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Repository;
 import ru.job4j.cars.model.Photo;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Repository
 @AllArgsConstructor
@@ -87,7 +84,7 @@ public class PhotoRepository {
      * Find all Photos
      * @return List of Photos or Empty List
      */
-    public Collection<Photo> findAll() {
+    public List<Photo> findAll() {
         try {
             var allPhotos = crudRepository.query(
                     "FROM Photo",

@@ -5,10 +5,7 @@ import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Repository;
 import ru.job4j.cars.model.Owner;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Repository
 @AllArgsConstructor
@@ -87,7 +84,7 @@ public class OwnerRepository {
      * Find all Owners
      * @return List of Owners or Empty List
      */
-    public Collection<Owner> findAll() {
+    public List<Owner> findAll() {
         try {
             var allOwners = crudRepository.query(
                     "FROM Owner",

@@ -5,10 +5,7 @@ import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Repository;
 import ru.job4j.cars.model.Car;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Repository
 @AllArgsConstructor
@@ -87,7 +84,7 @@ public class CarRepository {
      * Find all Cars
      * @return List of Cars or Empty List
      */
-    public Collection<Car> findAll() {
+    public List<Car> findAll() {
         try {
             var allCars = crudRepository.query(
                     "FROM Car",
