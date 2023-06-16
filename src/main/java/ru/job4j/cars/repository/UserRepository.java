@@ -128,4 +128,26 @@ public class UserRepository {
         }
         return Optional.empty();
     }
+
+    /**
+     * Find User by email and password
+     * @param email Email
+     * @param password Password
+     * @return
+     */
+    public Optional<User> findByEmailAndPassword(String email, String password) {
+        try {
+            return crudRepository.optional(
+                    "FROM User AS u WHERE u.email = :fEmail AND u.password = :fPassword",
+                    User.class,
+                    Map.of(
+                            "fEmail", email,
+                            "fPassword", password
+                    )
+            );
+        } catch (Exception e) {
+            log.error("Exception in finding User by email and password: " + e, e);
+        }
+        return Optional.empty();
+    }
 }
