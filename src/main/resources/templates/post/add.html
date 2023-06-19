@@ -1,0 +1,156 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+            integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+            integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <title>Cars</title>
+</head>
+<body>
+<div class="container">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary navbar-dark bg-dark mb-3">
+        <div class="container-fluid">
+            <a class="navbar-brand" th:href="@{/posts/}">CARS</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+                    aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">New</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Used</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Electric</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Category</a>
+                    </li>
+                    <li class="nav-item" th:if="${user.name != 'Guest'}">
+                        <a class="nav-link" href="#">Category</a>
+                    </li>
+                    <li class="nav-item" th:if="${user.name != 'Guest'}">
+                        <a class="nav-link" th:href="@{/posts/addForm}">Add Post</a>
+                    </li>
+                </ul>
+                <div class="d-flex" th:if="${user.name == 'Guest'}">
+                    <a class="nav-link text-secondary" th:href="@{/users/signUp}">
+                        <span>SIGN UP |</span></a>
+                    <a class="nav-link text-secondary" th:href="@{/users/loginForm}">
+                        <span>| LOG IN</span></a>
+                </div>
+                <div class="d-flex" th:if="${user.name != 'Guest'}">
+                    <a class="nav-link text-secondary" th:text="${user.name} + ' |'"></a>
+                    <a class="nav-link text-secondary" th:href="@{/users/logout}">
+                        <span>| LOG OUT</span></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div>
+        <form class="row g-3" th:action="@{/posts/create}" method="post" enctype="multipart/form-data">
+            <div class="col-md-4">
+                <label for="carName" class="form-label">Name</label>
+                <input type="text" class="form-control" id="carName" name="carName" placeholder="Car model" required>
+            </div>
+            <div class="col-md-4">
+                <label for="brand.id" class="form-label">Brand</label>
+                <select class="form-control" id="brand.id" name="brandId" required>
+                    <option hidden disabled selected value></option>
+                    <option th:each="brand : ${brands}" th:value="${brand.id}" th:text="${brand.name}"></option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label for="body.id" class="form-label">Body</label>
+                <select class="form-control" id="body.id" name="bodyId" required>
+                    <option hidden disabled selected value></option>
+                    <option th:each="body : ${bodies}" th:value="${body.id}" th:text="${body.name}"></option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label for="fuel.id" class="form-label">Fuel</label>
+                <select class="form-control" id="fuel.id" name="fuelId" required>
+                    <option hidden disabled selected value></option>
+                    <option th:each="fuel : ${fuel}" th:value="${fuel.id}" th:text="${fuel.name}"></option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label for="engine.id" class="form-label">Engine</label>
+                <select class="form-control" id="engine.id" name="engineId" required>
+                    <option hidden disabled selected value></option>
+                    <option th:each="engine : ${engines}" th:value="${engine.id}" th:text="${engine.name}"></option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label for="transmission.id" class="form-label">Transmission</label>
+                <select class="form-control" id="transmission.id" name="transmissionId" required>
+                    <option hidden disabled selected value></option>
+                    <option th:each="transmission : ${transmissions}" th:value="${transmission.id}" th:text="${transmission.name}"></option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="carNew" class="form-label">Condition</label>
+                <select class="form-control" id="carNew" name="carNew" required>
+                    <option hidden disabled selected value></option>
+                    <option value="true">New</option>
+                    <option value="false">Used</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="mileage" class="form-label">Mileage in km</label>
+                <input type="number" class="form-control" id="mileage" name="mileage" required>
+            </div>
+            <div class="col-md-3">
+                <label for="year" class="form-label">Year</label>
+                <input type="number" class="form-control" id="year" name="produced" required>
+            </div>
+            <div class="col-md-3">
+                <label for="location" class="form-label">Location</label>
+                <input type="text" class="form-control" id="location" name="location" placeholder="City" required>
+            </div>
+            <div class="col-md-3">
+                <div>
+                    <label for="price" class="form-label">Price in AED</label>
+                    <input type="number" class="form-control" id="price" name="price" required>
+                </div>
+                <div class="photo mt-2">
+                    <label for="file" class="form-label">Add photo</label>
+                    <input type="file" class="form-control" name="files" id="file" multiple>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <label for="description" class="form-label">Description</label>
+                <textarea class="form-control" id="description" name="description" rows="4" placeholder="Additional info about your car" required></textarea>
+            </div>
+            <div class="col-md-3">
+                <label for="ownerPhone" class="form-label">Contact number</label>
+                <input type="tel" class="form-control" id="ownerPhone" name="ownerPhone" required>
+            </div>
+
+            <div class="d-grid gap-2 d-md-block">
+                <div class="back-button mt-3"style="display: inline-block">
+                    <a th:href="@{/posts/}" class="btn btn-secondary">Cancel</a>
+                </div>
+                <div class="submit-task-button mt-3" style="display: inline-block">
+                    <button class="btn btn-dark">Create</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

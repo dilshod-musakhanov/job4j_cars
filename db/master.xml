@@ -31,6 +31,8 @@
     <include file="scripts/024_dml_update_fuel_table.sql" relativeToChangelogFile="true"/>
     <include file="scripts/025_dml_update_transmission_table.sql" relativeToChangelogFile="true"/>
     <include file="scripts/026_dml_update_engine_table.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/027_dml_update_owner_table.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/028_dml_update_auto_post_table.sql" relativeToChangelogFile="true"/>
 
 
 </databaseChangeLog>

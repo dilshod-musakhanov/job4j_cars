@@ -1,0 +1,2 @@
+ALTER TABLE auto_post
+DROP CONSTRAINT auto_post_description_key;

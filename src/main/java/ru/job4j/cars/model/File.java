@@ -14,7 +14,7 @@ import javax.persistence.*;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @Table(name = "post_photo")
-public class Photo {
+public class File {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Include
@@ -23,6 +23,11 @@ public class Photo {
     private String name;
 
     private String path;
+
+    public File(String name, String path) {
+        this.name = name;
+        this.path = path;
+    }
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "auto_post_id")

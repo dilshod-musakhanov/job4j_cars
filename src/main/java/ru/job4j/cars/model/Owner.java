@@ -20,6 +20,7 @@ public class Owner {
     private int id;
 
     private String name;
+    private String phone;
 
     @OneToOne
     @JoinColumn(name = "user_id")

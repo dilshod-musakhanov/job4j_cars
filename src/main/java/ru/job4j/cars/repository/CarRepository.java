@@ -20,7 +20,7 @@ public class CarRepository {
      */
     public Optional<Car> save(Car car) {
         try {
-            crudRepository.run(session -> session.persist(car));
+            crudRepository.run(session -> session.save(car));
             return Optional.of(car);
         } catch (Exception e) {
             log.error("Exception in saving Car: " + car + " " + e);

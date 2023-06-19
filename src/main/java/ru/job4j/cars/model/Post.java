@@ -59,5 +59,5 @@ public class Post {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "auto_post_id")
-    private List<Photo> photos = new ArrayList<>();
+    private List<File> files = new ArrayList<>();
 }
