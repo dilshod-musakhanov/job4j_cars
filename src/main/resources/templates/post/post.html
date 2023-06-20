@@ -59,6 +59,10 @@
         </div>
     </nav>
     <div>
+        <div class="onePost">
+
+        </div>
+
         <div class="list">
             <table class="table">
                 <tbody>
@@ -98,7 +102,7 @@
                              style="max-width: 200px;" alt="No image">
                         <span th:unless="${not #lists.isEmpty(post.files)}">No image</span>
                     </td>
-                    <td><a th:text="${post.car.name}" th:href="@{/posts/post/{postId}(postId=${post.id})}"></a>
+                    <td th:text="${post.car.name}">
                     </td>
                     <td th:text="${post.car.brand.name}">
                     </td>
@@ -118,8 +122,8 @@
                 </tbody>
             </table>
         </div>
-        </div>
     </div>
+</div>
 </div>
 </body>
 </html>

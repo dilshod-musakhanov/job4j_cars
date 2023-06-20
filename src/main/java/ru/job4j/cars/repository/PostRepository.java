@@ -88,7 +88,7 @@ public class PostRepository {
     public List<Post> findAll() {
         try {
             var allPosts = crudRepository.query(
-                    "FROM Post",
+                    "SELECT DISTINCT p FROM Post AS p JOIN FETCH p.car JOIN FETCH p.files",
                     Post.class
             );
             return allPosts;

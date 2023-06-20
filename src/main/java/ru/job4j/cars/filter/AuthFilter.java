@@ -19,7 +19,8 @@ public class AuthFilter extends HttpFilter {
     private static final Set<String> URI_LIST = Set.of(
             "/users/",
             "/posts/",
-            "/posts/addForm"
+            "/posts/addForm",
+            "/files/"
     );
 
     @Override

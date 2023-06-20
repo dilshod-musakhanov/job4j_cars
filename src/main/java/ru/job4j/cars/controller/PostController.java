@@ -26,7 +26,9 @@ public class PostController {
     private final CarService carService;
 
     @GetMapping({"/", "/index"})
-    public String getMainPage() {
+    public String getMainPage(Model model) {
+        List<Post> posts = postService.findAll();
+        model.addAttribute("posts", posts);
         return "post/main";
     }
 
@@ -61,7 +63,7 @@ public class PostController {
             car.setProduced(postDto.getProduced());
             car.setOwner(owner);
             car.getOwners().add(owner);
-            System.out.println("****************  " + carService.save(car).get());
+            carService.save(car).get();
             var post = new Post();
             post.setDescription(postDto.getDescription());
             post.setPrice(postDto.getPrice());
@@ -72,7 +74,7 @@ public class PostController {
             post.setUser(user);
             List<File> photos = fileService.convertMultipartFileToFile(files);
             post.setFiles(photos);
-            System.out.println("*******************  " + postService.save(post));
+            postService.save(post);
             model.addAttribute("message", "New post added!");
             return "success/success";
         } catch (Exception e) {
@@ -80,5 +82,6 @@ public class PostController {
             return "error/failedPost";
         }
     }
+
 
 }
