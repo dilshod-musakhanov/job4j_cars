@@ -20,7 +20,10 @@ public class AuthFilter extends HttpFilter {
             "/users/",
             "/posts/",
             "/posts/addForm",
-            "/files/"
+            "/posts/post/",
+            "/files/",
+            "/error/",
+            "success/"
     );
 
     @Override

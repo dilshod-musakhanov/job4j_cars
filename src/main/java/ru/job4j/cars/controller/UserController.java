@@ -31,7 +31,7 @@ public class UserController {
             model.addAttribute(
                     "message",
                     "An account already exists. Please use log in option");
-            return "error/log";
+            return "error/404";
         }
         return "redirect:/users/loginForm";
     }
@@ -49,7 +49,7 @@ public class UserController {
             model.addAttribute(
                     "message",
                     "Incorrect input details or sign up first");
-            return "error/log";
+            return "error/404";
         }
         HttpSession session = request.getSession();
         session.setAttribute("user", optionalUser.get());

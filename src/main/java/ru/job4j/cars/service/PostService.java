@@ -45,4 +45,7 @@ public class PostService {
         return postRepository.findWithPhotos();
     }
 
+    public boolean updateState(int id) {
+        return postRepository.updateState(id);
+    }
 }

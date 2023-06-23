@@ -76,12 +76,45 @@ public class PostController {
             post.setFiles(photos);
             postService.save(post);
             model.addAttribute("message", "New post added!");
-            return "success/success";
+            return "success/successPost";
         } catch (Exception e) {
             model.addAttribute("message", e);
             return "error/failedPost";
         }
     }
 
+    @GetMapping("/post/{postId}")
+    public String getPostById(Model model, @PathVariable int postId) {
+        var postOptional = postService.findById(postId);
+        if (postOptional.isEmpty()) {
+            model.addAttribute("message", "Post not found");
+            return "error/failedPost";
+        }
+        model.addAttribute("post", postOptional.get());
+        return "post/post";
+    }
 
+    @GetMapping("/state/{id}")
+    public String changeStatus(Model model, @PathVariable int id, @SessionAttribute User user) {
+        var isStateUpdated = postService.updateState(id);
+        model.addAttribute("user", user);
+        if (!isStateUpdated) {
+            model.addAttribute("message", "Error in updating status");
+            return "error/failedPost";
+        }
+        model.addAttribute("message", "Your car is marked as SOLD");
+        return "success/successPost";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deletePost(Model model, @PathVariable int id, @SessionAttribute User user) {
+        var isDeleted = postService.delete(id);
+        model.addAttribute("user", user);
+        if (!isDeleted) {
+            model.addAttribute("message", "Error in deleting post. Try again.");
+            return "error/failedPost";
+        }
+        model.addAttribute("message", "Your post deleted successfully");
+        return "success/successPost";
+    }
 }

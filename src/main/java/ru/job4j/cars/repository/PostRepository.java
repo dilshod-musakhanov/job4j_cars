@@ -53,6 +53,11 @@ public class PostRepository {
     public boolean delete(int id) {
         try {
             crudRepository.run(
+                    "DELETE File WHERE auto_post_id = :fId",
+                    Map.of("fId", id)
+            );
+
+            crudRepository.run(
                     "DELETE Post WHERE id = :fId",
                     Map.of("fId", id)
             );
@@ -71,7 +76,7 @@ public class PostRepository {
     public Optional<Post> findById(int id) {
         try {
             return crudRepository.optional(
-                    "FROM Post AS p WHERE p.id = :fId",
+                    "FROM Post AS p JOIN FETCH p.files WHERE p.id = :fId",
                     Post.class,
                     Map.of("fId", id)
             );
@@ -136,6 +141,10 @@ public class PostRepository {
         return Collections.emptyList();
     }
 
+    /**
+     * Find Post with Photo
+     * @return List of Posts or Empty List
+     */
     public List<Post> findWithPhotos() {
         try {
             return crudRepository.query(
@@ -146,6 +155,19 @@ public class PostRepository {
             log.error("Exception in finding Posts with Photo " + e);
         }
         return Collections.emptyList();
+    }
+
+    public boolean updateState(int id) {
+        try {
+            crudRepository.run(
+                    "UPDATE Post SET carSold = :fCarSold where id = :fId",
+                    Map.of("fCarSold", true, "fId", id)
+            );
+            return true;
+        } catch (Exception e) {
+        log.error("Exception in updating Car status " + e);
+    }
+        return false;
     }
 
 }

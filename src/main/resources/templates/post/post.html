@@ -15,6 +15,15 @@
             integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <style>
+        .form-label{
+        color: grey;
+        }
+
+        .red-label{
+        color: red;
+        }
+    </style>
     <title>Cars</title>
 </head>
 <body>
@@ -59,68 +68,82 @@
         </div>
     </nav>
     <div>
-        <div class="onePost">
-
-        </div>
-
-        <div class="list">
-            <table class="table">
-                <tbody>
-                <tr>
-                    <td>
-                        <p class="fw-semibold">Photo</p>
-                    </td>
-                    <td>
-                        <p class="fw-semibold">Name</p>
-                    </td>
-                    <td>
-                        <p class="fw-semibold">Brand</p>
-                    </td>
-                    <td>
-                        <p class="fw-semibold">Body</p>
-                    </td>
-                    <td>
-                        <p class="fw-semibold">Year</p>
-                    </td>
-                    <td>
-                        <p class="fw-semibold">Condition</p>
-                    </td>
-                    <td>
-                        <p class="fw-semibold">Price</p>
-                    </td>
-                    <td>
-                        <p class="fw-semibold">Status</p>
-                    </td>
-                    <td>
-                        <p class="fw-semibold">Posted</p>
-                    </td>
-                </tr>
-                <tr th:each="post : ${posts}">
-                    <td>
+        <div>
+            <form class="row g-4" >
+                <div style="display: flex; justify-content: center; flex-wrap: wrap; padding: 0 10px;">
+                    <div th:each="file : ${post.files}" style="padding:10px">
                         <img th:if="${not #lists.isEmpty(post.files)}"
-                             th:src="@{/files/{fileId}(fileId=${post.files[0].id})}"
-                             style="max-width: 200px;" alt="No image">
-                        <span th:unless="${not #lists.isEmpty(post.files)}">No image</span>
-                    </td>
-                    <td th:text="${post.car.name}">
-                    </td>
-                    <td th:text="${post.car.brand.name}">
-                    </td>
-                    <td th:text="${post.car.body.name}">
-                    </td>
-                    <td th:text="${post.car.produced}">
-                    </td>
-                    <td th:text="${post.isCarNew}==true? 'New':'Used'">
-                    </td>
-                    <td th:text="${post.price}">
-                    </td>
-                    <td th:text="${post.isCarSold}==true? 'Sold':'On Sale'">
-                    </td>
-                    <td th:text="${#temporals.format(post.created,'dd-MM-yyyy HH:mm')}">
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+                             th:src="@{/files/{fileId}(fileId=${file.getId()})}"
+                             style="max-width: 400px; max-height: 300px" alt="[NO IMAGE]">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <label for="carName" class="form-label"><span class="red-label" th:text="${post.carSold} == true ? 'SOLD' : 'ON SALE'"></span></label>
+                    <span class="form-control" id="carName" th:text="${post.car.name}"></span>
+                </div>
+                <div class="col-md-2">
+                    <label for="brandName" class="form-label">Brand</label>
+                    <span class="form-control" id="brandName" th:text="${post.car.brand.name}"></span>
+                </div>
+                <div class="col-md-2">
+                    <label for="bodyName" class="form-label">Body</label>
+                    <span class="form-control" id="bodyName" th:text="${post.car.body.name}"></span>
+                </div>
+                <div class="col-md-2">
+                    <label for="fuelName" class="form-label">Fuel</label>
+                    <span class="form-control" id="fuelName" th:text="${post.car.fuel.name}"></span>
+                </div>
+                <div class="col-md-2">
+                    <label for="engineName" class="form-label">Engine</label>
+                    <span class="form-control" id="engineName" th:text="${post.car.engine.name}"></span>
+                </div>
+                <div class="col-md-2">
+                    <label for="transmissionName" class="form-label">Transmission</label>
+                    <span class="form-control" id="transmissionName" th:text="${post.car.transmission.name}"></span>
+                </div>
+                <div class="col-md-2">
+                    <label for="carNew" class="form-label">Condition</label>
+                    <span class="form-control" id="carNew" th:text="${post.carNew} == true ? 'New' : 'Used'"></span>
+                </div>
+                <div class="col-md-2">
+                    <label for="mileage" class="form-label">Mileage</label>
+                    <span class="form-control" id="mileage" th:text="${post.mileage}"></span>
+                </div>
+                <div class="col-md-2">
+                    <label for="produced" class="form-label">Year</label>
+                    <span class="form-control" id="produced" th:text="${post.car.produced}"></span>
+                </div>
+                <div class="col-md-2">
+                    <label for="locationName" class="form-label">Location</label>
+                    <span class="form-control" id="locationName" th:text="${post.location}"></span>
+                </div>
+                <div class="col-md-2">
+                    <label for="price" class="form-label">Price in AED</label>
+                    <span class="form-control" id="price" th:text="${post.price}"></span>
+                </div>
+                <div class="col-md-2">
+                    <label for="ownerPhone" class="form-label">Contact Number</label>
+                    <span class="form-control" id="ownerPhone" th:text="${post.car.owner.phone}"></span>
+                </div>
+                <div class="col-md-8">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea class="form-control" id="description" name="description" rows="2" th:text="${post.description}" disabled></textarea>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="back-button mt-3"style="display: inline-block">
+                        <a th:href="@{/posts/}" class="btn btn-secondary">Main page</a>
+                    </div>
+                    <div class="button-user" th:if="${post.user.id==user.id}">
+                        <div class="back-button mt-3"style="display: inline-block">
+                            <a th:href="@{/posts/state/{id}(id=${post.id})}" class="btn btn-secondary">Mark as SOLD</a>
+                        </div>
+                        <div class="back-button mt-3"style="display: inline-block">
+                            <a th:href="@{/posts/delete/{id}(id=${post.id})}" class="btn btn-secondary">Delete post</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>

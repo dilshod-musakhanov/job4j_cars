@@ -93,27 +93,25 @@
                 </tr>
                 <tr th:each="post : ${posts}">
                     <td>
-                        <img th:if="${not #lists.isEmpty(post.files)}"
-                             th:src="@{/files/{fileId}(fileId=${post.files[0].id})}"
-                             style="max-width: 200px;" alt="No image">
-                        <span th:unless="${not #lists.isEmpty(post.files)}">No image</span>
+                        <a th:href="@{/posts/post/{postId}(postId=${post.id})}">
+                            <img th:if="${not #lists.isEmpty(post.files)}"
+                                 th:src="@{/files/{fileId}(fileId=${post.files[0].id})}"
+                                 style="max-width: 200px;" alt="[NO IMAGE]"
+                            >
+                        </a>
                     </td>
-                    <td><a th:text="${post.car.name}" th:href="@{/posts/post/{postId}(postId=${post.id})}"></a>
+                    <td>
+                        <a class="text-decoration-none text-dark" th:text="${post.car.name}"
+                           th:href="@{/posts/post/{postId}(postId=${post.id})}">
+                        </a>
                     </td>
-                    <td th:text="${post.car.brand.name}">
-                    </td>
-                    <td th:text="${post.car.body.name}">
-                    </td>
-                    <td th:text="${post.car.produced}">
-                    </td>
-                    <td th:text="${post.isCarNew}==true? 'New':'Used'">
-                    </td>
-                    <td th:text="${post.price}">
-                    </td>
-                    <td th:text="${post.isCarSold}==true? 'Sold':'On Sale'">
-                    </td>
-                    <td th:text="${#temporals.format(post.created,'dd-MM-yyyy HH:mm')}">
-                    </td>
+                    <td th:text="${post.car.brand.name}"></td>
+                    <td th:text="${post.car.body.name}"></td>
+                    <td th:text="${post.car.produced}"></td>
+                    <td th:text="${post.isCarNew}==true? 'New':'Used'"></td>
+                    <td th:text="${post.price}"></td>
+                    <td th:text="${post.isCarSold}==true? 'Sold':'On Sale'"></td>
+                    <td th:text="${#temporals.format(post.created,'dd-MM-yyyy HH:mm')}"></td>
                 </tr>
                 </tbody>
             </table>
