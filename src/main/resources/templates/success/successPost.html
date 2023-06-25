@@ -29,19 +29,35 @@
             <div class="collapse navbar-collapse" id="navbarText">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">New</a>
+                        <a class="nav-link" th:href="@{/posts/carNew}">New</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Used</a>
+                        <a class="nav-link" th:href="@{/posts/carUsed}">Used</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Electric</a>
+                        <a class="nav-link" th:href="@{/posts/carElectric}">Electric</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Category</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Category
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/posts/withPhotos}">With photos</a></li>
+                            <li><a class="dropdown-item" th:href="@{/posts/onSale}">On Sale</a></li>
+                            <li><a class="dropdown-item" th:href="@{/posts/carSold}">Sold</a></li>
+                            <li><a class="dropdown-item" th:href="@{/posts/recentlyPosted}">Recently posted</a></li>
+                        </ul>
                     </li>
                     <li class="nav-item" th:if="${user.name != 'Guest'}">
                         <a class="nav-link" th:href="@{/posts/addForm}">Add Post</a>
+                    </li>
+                    <li>
+                        <div class="container-fluid">
+                            <form class="d-flex" role="search" th:action="@{/posts/brandName}" method="GET">
+                                <input class="form-control me-2" type="search" name="brandName" placeholder="Search by brand" aria-label="Search">
+                                <button class="btn btn-outline-secondary" type="submit">Search</button>
+                            </form>
+                        </div>
                     </li>
                 </ul>
                 <div class="d-flex" th:if="${user.name == 'Guest'}">
@@ -64,7 +80,9 @@
                 <div class="alert alert-warning alert-dismissible fade show" role="alert">
                     <h4 class="alert-heading">Awesome!</h4>
                     <p class="text" th:text="${message}"></p>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <form th:action="@{/posts/}" method="get">
+                        <input type="submit" class="btn-close" value=" ">
+                    </form>
                 </div>
             </div>
         </div>

@@ -107,13 +107,12 @@ public class PostRepository {
      * Find Posts created on the previous day
      * @return List of Posts or Empty List
      */
-    public List<Post> findByCreatedPreviousDay() {
+    public List<Post> findByCreatedInThreeLastDays() {
         try {
-            LocalDateTime previousDay = LocalDateTime.now().minusDays(1);
-            LocalDateTime startOfDay = previousDay.with(LocalTime.MIN);
-            LocalDateTime endOfDay = previousDay.with(LocalTime.MAX);
+            LocalDateTime startOfDay = LocalDateTime.now().minusDays(2).with(LocalTime.MIN);
+            LocalDateTime endOfDay = LocalDateTime.now().with(LocalTime.MAX);
             return crudRepository.query(
-                    "FROM Post WHERE created >= :startOfDay AND created <= :endOfDay",
+                    "SELECT DISTINCT p FROM Post AS p JOIN FETCH p.files WHERE p.created >= :startOfDay AND p.created <= :endOfDay",
                     Post.class,
                     Map.of("startOfDay", startOfDay, "endOfDay", endOfDay)
             );
@@ -124,19 +123,19 @@ public class PostRepository {
     }
 
     /**
-     * Find Posts as per Car name
-     * @param carName name
+     * Find Posts as per Brand name
+     * @param brandName name
      * @return List of Posts or Empty List
      */
-    public List<Post> findByCarName(String carName) {
+    public List<Post> findByBrandName(String brandName) {
         try {
             return crudRepository.query(
-                    "FROM Post AS p JOIN FETCH p.car AS c WHERE c.name = :fName",
+                    "SELECT DISTINCT p FROM Post AS p JOIN FETCH p.files AS f JOIN FETCH p.car AS c JOIN c.brand AS b WHERE b.name = :fName",
                     Post.class,
-                    Map.of("fName", carName)
+                    Map.of("fName", brandName)
             );
         } catch (Exception e) {
-            log.error("Exception in finding Posts by Car name " + e);
+            log.error("Exception in finding Posts by Brand name " + e);
         }
         return Collections.emptyList();
     }
@@ -148,15 +147,20 @@ public class PostRepository {
     public List<Post> findWithPhotos() {
         try {
             return crudRepository.query(
-                    "FROM Post AS p WHERE EXISTS (SELECT 1 FROM Photo ph WHERE ph.post = p)",
+                    "SELECT DISTINCT p FROM Post AS p JOIN FETCH p.files f WHERE LENGTH(f.name) > 1",
                     Post.class
             );
         } catch (Exception e) {
-            log.error("Exception in finding Posts with Photo " + e);
+            log.error("Exception in finding Posts with files " + e);
         }
         return Collections.emptyList();
     }
 
+    /**
+     * Update status of Post by ID
+     * @param id Post ID
+     * @return boolean result
+     */
     public boolean updateState(int id) {
         try {
             crudRepository.run(
@@ -168,6 +172,60 @@ public class PostRepository {
         log.error("Exception in updating Car status " + e);
     }
         return false;
+    }
+
+    /**
+     * Find Post by Condition carNew
+     * @param carNew Condition
+     * @return List of Posts or Empty List
+     */
+    public List<Post> byCondition(boolean carNew) {
+        try {
+            return crudRepository.query(
+                    "SELECT DISTINCT p FROM Post AS p JOIN FETCH p.files WHERE p.carNew = :fCarNew",
+                    Post.class,
+                    Map.of("fCarNew", carNew)
+            );
+        } catch (Exception e) {
+            log.error("Exception in finding Post by Car condition: " + carNew + " " + e);
+        }
+        return Collections.emptyList();
+    }
+
+    /**
+     * Find Posts by Fuel type
+     * @param fuelType Fuel type
+     * @return List of Posts or Empty List
+     */
+    public List<Post> byFuelType(String fuelType) {
+        try {
+            return crudRepository.query(
+                    "SELECT DISTINCT p FROM Post AS p JOIN FETCH p.files JOIN FETCH p.car car JOIN car.fuel f WHERE f.name = :fuelType",
+                    Post.class,
+                    Map.of("fuelType", fuelType)
+            );
+        } catch (Exception e) {
+            log.error("Exception in finding Post by fuel type: " + fuelType + " " + e);
+        }
+        return Collections.emptyList();
+    }
+
+    /**
+     * Find Posts by Status carSold
+     * @param carSold Status
+     * @return List of Posts or Empty List
+     */
+    public List<Post> byStatus(boolean carSold) {
+        try {
+            return crudRepository.query(
+                    "SELECT DISTINCT p FROM Post AS p JOIN FETCH p.files WHERE p.carSold = :fCarSold",
+                    Post.class,
+                    Map.of("fCarSold", carSold)
+            );
+        } catch (Exception e) {
+            log.error("Exception in finding Post by Car status: " + carSold + " " + e);
+        }
+        return Collections.emptyList();
     }
 
 }

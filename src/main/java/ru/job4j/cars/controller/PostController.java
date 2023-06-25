@@ -117,4 +117,92 @@ public class PostController {
         model.addAttribute("message", "Your post deleted successfully");
         return "success/successPost";
     }
+
+    @GetMapping("/carNew")
+    public String getPostsWithNewCars(Model model) {
+        List<Post> newCars = postService.byCondition(true);
+        if (newCars.isEmpty()) {
+            model.addAttribute("message", "No posts found with new cars");
+            return "error/failedPost";
+        }
+        model.addAttribute("posts", newCars);
+        return "post/main";
+    }
+
+    @GetMapping("/carUsed")
+    public String getPostsWithUsedCars(Model model) {
+        List<Post> newCars = postService.byCondition(false);
+        if (newCars.isEmpty()) {
+            model.addAttribute("message", "No posts found with used cars");
+            return "error/failedPost";
+        }
+        model.addAttribute("posts", newCars);
+        return "post/main";
+    }
+
+    @GetMapping("/carElectric")
+    public String getPostsWithElectricCars(Model model) {
+        List<Post> electricCars = postService.byFuelType("Electric");
+        if (electricCars.isEmpty()) {
+            model.addAttribute("message", "No posts found with electric cars");
+            return "error/failedPost";
+        }
+        model.addAttribute("posts", electricCars);
+        return "post/main";
+    }
+
+    @GetMapping("/withPhotos")
+    public String getPostsWithPhoto(Model model) {
+        List<Post> postsWithPhotos = postService.findWithPhotos();
+        if (postsWithPhotos.isEmpty()) {
+            model.addAttribute("message", "No posts found with photos");
+            return "error/failedPost";
+        }
+        model.addAttribute("posts", postsWithPhotos);
+        return "post/main";
+    }
+
+    @GetMapping("/carSold")
+    public String getPostsWithSoldCars(Model model) {
+        List<Post> soldCars = postService.byStatus(true);
+        if (soldCars.isEmpty()) {
+            model.addAttribute("message", "No posts found with sold cars");
+            return "error/failedPost";
+        }
+        model.addAttribute("posts", soldCars);
+        return "post/main";
+    }
+
+    @GetMapping("/onSale")
+    public String getPostsWithCarsOnSale(Model model) {
+        List<Post> onSaleCars = postService.byStatus(false);
+        if (onSaleCars.isEmpty()) {
+            model.addAttribute("message", "No posts found with on sale cars");
+            return "error/failedPost";
+        }
+        model.addAttribute("posts", onSaleCars);
+        return "post/main";
+    }
+
+    @GetMapping("/recentlyPosted")
+    public String getRecentlyPosted(Model model) {
+        List<Post> newCars = postService.findByCreatedInThreeLastDays();
+        if (newCars.isEmpty()) {
+            model.addAttribute("message", "Recently created posts are not found");
+            return "error/failedPost";
+        }
+        model.addAttribute("posts", newCars);
+        return "post/main";
+    }
+
+    @GetMapping("/brandName")
+    public String getPostsByBrandName(Model model, @RequestParam String brandName) {
+        List<Post> postsByBrand = postService.findByBrandName(brandName);
+        if (postsByBrand.isEmpty()) {
+            model.addAttribute("message", "Posts by brand are not found. A brand spelling might be wrong.");
+            return "error/failedPost";
+        }
+        model.addAttribute("posts", postsByBrand);
+        return "post/main";
+    }
 }
