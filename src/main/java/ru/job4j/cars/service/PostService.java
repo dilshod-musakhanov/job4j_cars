@@ -12,7 +12,6 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-@Log4j
 public class PostService {
     private final PostRepository postRepository;
 

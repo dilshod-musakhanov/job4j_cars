@@ -20,7 +20,7 @@ public class UserRepository {
      */
     public Optional<User> save(User user) {
         try {
-            crudRepository.run(session -> session.persist(user));
+            crudRepository.run(session -> session.save(user));
             return Optional.of(user);
         } catch (Exception e) {
             log.error("Exception in saving User: " + e);
