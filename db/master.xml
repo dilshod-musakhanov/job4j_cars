@@ -34,6 +34,8 @@
     <include file="scripts/027_dml_update_owner_table.sql" relativeToChangelogFile="true"/>
     <include file="scripts/028_dml_update_auto_post_table.sql" relativeToChangelogFile="true"/>
     <include file="scripts/029_dml_update_post_photo_table.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/030_ddl_drop_all_tables.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/031_ddl_create_all_tables.sql" relativeToChangelogFile="true"/>
 
 
 </databaseChangeLog>
