@@ -1,4 +1,0 @@
-CREATE TABLE fuel (
-    id   SERIAL PRIMARY KEY,
-    name VARCHAR NOT NULL
-);

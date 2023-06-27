@@ -1,1 +1,0 @@
-DELETE FROM post_photo WHERE auto_post_id IS NULL;
