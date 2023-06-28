@@ -93,7 +93,7 @@ public class PostRepository {
     public List<Post> findAll() {
         try {
             var allPosts = crudRepository.query(
-                    "SELECT DISTINCT p FROM Post AS p JOIN FETCH p.car JOIN FETCH p.files",
+                    "SELECT DISTINCT p FROM Post AS p JOIN FETCH p.car JOIN FETCH p.files ORDER BY p.created",
                     Post.class
             );
             return allPosts;
@@ -112,7 +112,7 @@ public class PostRepository {
             LocalDateTime startOfDay = LocalDateTime.now().minusDays(2).with(LocalTime.MIN);
             LocalDateTime endOfDay = LocalDateTime.now().with(LocalTime.MAX);
             return crudRepository.query(
-                    "SELECT DISTINCT p FROM Post AS p JOIN FETCH p.files WHERE p.created >= :startOfDay AND p.created <= :endOfDay",
+                    "SELECT DISTINCT p FROM Post AS p JOIN FETCH p.files WHERE p.created >= :startOfDay AND p.created <= :endOfDay ORDER BY p.created",
                     Post.class,
                     Map.of("startOfDay", startOfDay, "endOfDay", endOfDay)
             );
@@ -130,7 +130,7 @@ public class PostRepository {
     public List<Post> findByBrandName(String brandName) {
         try {
             return crudRepository.query(
-                    "SELECT DISTINCT p FROM Post AS p JOIN FETCH p.files AS f JOIN FETCH p.car AS c JOIN c.brand AS b WHERE b.name = :fName",
+                    "SELECT DISTINCT p FROM Post AS p JOIN FETCH p.files AS f JOIN FETCH p.car AS c JOIN c.brand AS b WHERE b.name = :fName ORDER BY p.created",
                     Post.class,
                     Map.of("fName", brandName)
             );
@@ -147,7 +147,7 @@ public class PostRepository {
     public List<Post> findWithPhotos() {
         try {
             return crudRepository.query(
-                    "SELECT DISTINCT p FROM Post AS p JOIN FETCH p.files f WHERE LENGTH(f.name) > 1",
+                    "SELECT DISTINCT p FROM Post AS p JOIN FETCH p.files f WHERE LENGTH(f.name) > 1 ORDER BY p.created",
                     Post.class
             );
         } catch (Exception e) {
@@ -182,7 +182,7 @@ public class PostRepository {
     public List<Post> byCondition(boolean carNew) {
         try {
             return crudRepository.query(
-                    "SELECT DISTINCT p FROM Post AS p JOIN FETCH p.files WHERE p.carNew = :fCarNew",
+                    "SELECT DISTINCT p FROM Post AS p JOIN FETCH p.files WHERE p.carNew = :fCarNew ORDER BY p.created",
                     Post.class,
                     Map.of("fCarNew", carNew)
             );
@@ -200,7 +200,7 @@ public class PostRepository {
     public List<Post> byFuelType(String fuelType) {
         try {
             return crudRepository.query(
-                    "SELECT DISTINCT p FROM Post AS p JOIN FETCH p.files JOIN FETCH p.car car JOIN car.fuel f WHERE f.name = :fuelType",
+                    "SELECT DISTINCT p FROM Post AS p JOIN FETCH p.files JOIN FETCH p.car car JOIN car.fuel f WHERE f.name = :fuelType ORDER BY p.created",
                     Post.class,
                     Map.of("fuelType", fuelType)
             );
@@ -218,7 +218,7 @@ public class PostRepository {
     public List<Post> byStatus(boolean carSold) {
         try {
             return crudRepository.query(
-                    "SELECT DISTINCT p FROM Post AS p JOIN FETCH p.files WHERE p.carSold = :fCarSold",
+                    "SELECT DISTINCT p FROM Post AS p JOIN FETCH p.files WHERE p.carSold = :fCarSold ORDER BY p.created",
                     Post.class,
                     Map.of("fCarSold", carSold)
             );

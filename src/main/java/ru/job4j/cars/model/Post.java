@@ -25,7 +25,7 @@ public class Post {
     private int id;
 
     private String description;
-    private LocalDateTime created = LocalDateTime.now();
+    private LocalDateTime created = LocalDateTime.now().minusDays(4);
     private int price;
 
     @Column(name = "car_sold")
