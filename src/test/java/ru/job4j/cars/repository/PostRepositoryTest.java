@@ -16,16 +16,16 @@ import static org.hamcrest.Matchers.is;
 
 public class PostRepositoryTest {
     private final SessionFactory sf = UtilRepository.getSessionFactory();
-    private final EngineRepository engineRepository = new EngineRepository(UtilRepository.getCrudRepository());
-    private final BodyRepository bodyRepository = new BodyRepository(UtilRepository.getCrudRepository());
-    private final BrandRepository brandRepository = new BrandRepository(UtilRepository.getCrudRepository());
-    private final FuelRepository fuelRepository = new FuelRepository(UtilRepository.getCrudRepository());
-    private final TransmissionRepository transmissionRepository  = new TransmissionRepository(UtilRepository.getCrudRepository());
-    private final UserRepository userRepository = new UserRepository(UtilRepository.getCrudRepository());
-    private final OwnerRepository ownerRepository = new OwnerRepository(UtilRepository.getCrudRepository());
-    private final CarRepository carRepository = new CarRepository(UtilRepository.getCrudRepository());
-    private final FileRepository fileRepository = new FileRepository(UtilRepository.getCrudRepository());
-    private final PostRepository postRepository = new PostRepository(UtilRepository.getCrudRepository());
+    private final HibEngineRepository engineRepository = new HibEngineRepository(UtilRepository.getCrudRepository());
+    private final HibBodyRepository bodyRepository = new HibBodyRepository(UtilRepository.getCrudRepository());
+    private final HibBrandRepository brandRepository = new HibBrandRepository(UtilRepository.getCrudRepository());
+    private final HibFuelRepository fuelRepository = new HibFuelRepository(UtilRepository.getCrudRepository());
+    private final HibTransmissionRepository transmissionRepository  = new HibTransmissionRepository(UtilRepository.getCrudRepository());
+    private final HibUserRepository userRepository = new HibUserRepository(UtilRepository.getCrudRepository());
+    private final HibOwnerRepository ownerRepository = new HibOwnerRepository(UtilRepository.getCrudRepository());
+    private final HibCarRepository carRepository = new HibCarRepository(UtilRepository.getCrudRepository());
+    private final HibFileRepository fileRepository = new HibFileRepository(UtilRepository.getCrudRepository());
+    private final HibPostRepository postRepository = new HibPostRepository(UtilRepository.getCrudRepository());
 
 
     @BeforeEach

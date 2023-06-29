@@ -16,7 +16,7 @@ import java.util.Optional;
 
 public class EngineRepositoryTest {
     private final SessionFactory sf = UtilRepository.getSessionFactory();
-    private final EngineRepository engineRepository = new EngineRepository(UtilRepository.getCrudRepository());
+    private final HibEngineRepository engineRepository = new HibEngineRepository(UtilRepository.getCrudRepository());
 
     @BeforeEach
     public void wipeTable() {

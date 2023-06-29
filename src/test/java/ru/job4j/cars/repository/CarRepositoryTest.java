@@ -15,14 +15,14 @@ import static org.hamcrest.Matchers.is;
 
 public class CarRepositoryTest {
     private final SessionFactory sf = UtilRepository.getSessionFactory();
-    private final CarRepository carRepository = new CarRepository(UtilRepository.getCrudRepository());
-    private final EngineRepository engineRepository = new EngineRepository(UtilRepository.getCrudRepository());
-    private final BodyRepository bodyRepository = new BodyRepository(UtilRepository.getCrudRepository());
-    private final BrandRepository brandRepository = new BrandRepository(UtilRepository.getCrudRepository());
-    private final FuelRepository fuelRepository = new FuelRepository(UtilRepository.getCrudRepository());
-    private final TransmissionRepository transmissionRepository  = new TransmissionRepository(UtilRepository.getCrudRepository());
-    private final OwnerRepository ownerRepository = new OwnerRepository(UtilRepository.getCrudRepository());
-    private final UserRepository userRepository = new UserRepository(UtilRepository.getCrudRepository());
+    private final HibCarRepository carRepository = new HibCarRepository(UtilRepository.getCrudRepository());
+    private final HibEngineRepository engineRepository = new HibEngineRepository(UtilRepository.getCrudRepository());
+    private final HibBodyRepository bodyRepository = new HibBodyRepository(UtilRepository.getCrudRepository());
+    private final HibBrandRepository brandRepository = new HibBrandRepository(UtilRepository.getCrudRepository());
+    private final HibFuelRepository fuelRepository = new HibFuelRepository(UtilRepository.getCrudRepository());
+    private final HibTransmissionRepository transmissionRepository  = new HibTransmissionRepository(UtilRepository.getCrudRepository());
+    private final HibOwnerRepository ownerRepository = new HibOwnerRepository(UtilRepository.getCrudRepository());
+    private final HibUserRepository userRepository = new HibUserRepository(UtilRepository.getCrudRepository());
 
     @BeforeEach
     public void wipeTable() {

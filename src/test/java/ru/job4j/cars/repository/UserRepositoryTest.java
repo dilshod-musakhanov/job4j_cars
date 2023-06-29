@@ -15,7 +15,7 @@ import static org.hamcrest.Matchers.is;
 
 public class UserRepositoryTest {
     private final SessionFactory sf = UtilRepository.getSessionFactory();
-    private final UserRepository userRepository = new UserRepository(UtilRepository.getCrudRepository());
+    private final HibUserRepository userRepository = new HibUserRepository(UtilRepository.getCrudRepository());
 
     @BeforeEach
     public void wipeTable() {
