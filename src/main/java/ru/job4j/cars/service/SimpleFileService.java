@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import ru.job4j.cars.dto.FileDto;
 import ru.job4j.cars.model.File;
-import ru.job4j.cars.repository.FileRepository;
+import ru.job4j.cars.repository.HibFileRepository;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -13,12 +13,12 @@ import java.nio.file.Path;
 import java.util.*;
 
 @Service
-public class FileService {
-    private final FileRepository fileRepository;
+public class SimpleFileService implements FileService {
+    private final HibFileRepository fileRepository;
     private final String storageDirectory;
 
-    public FileService(FileRepository fileRepository,
-                       @Value("${file.directory}") String storageDirectory) {
+    public SimpleFileService(HibFileRepository fileRepository,
+                             @Value("${file.directory}") String storageDirectory) {
         this.fileRepository = fileRepository;
         this.storageDirectory = storageDirectory;
         createStorageDirectory(storageDirectory);
@@ -35,12 +35,14 @@ public class FileService {
         }
     }
 
+    @Override
     public File save(FileDto fileDto) {
         var path = getPath(fileDto.getName());
         writeFileBytes(path, fileDto.getContent());
         return fileRepository.save(new File(fileDto.getName(), path)).get();
     }
 
+    @Override
     public List<File> convertMultipartFileToFile(List<MultipartFile> files) throws IOException {
         List<File> fileList = new ArrayList<>();
         for (MultipartFile file : files) {
@@ -71,6 +73,7 @@ public class FileService {
         }
     }
 
+    @Override
     public Optional<FileDto> getFileById(int id) {
         var fileOptional = fileRepository.findById(id);
         if (fileOptional.isEmpty()) {
@@ -80,18 +83,22 @@ public class FileService {
         return Optional.of(new FileDto(fileOptional.get().getName(), content));
     }
 
+    @Override
     public Optional<File> save(File file) {
         return fileRepository.save(file);
     }
 
+    @Override
     public boolean update(File file) {
         return fileRepository.update(file);
     }
 
+    @Override
     public boolean delete(int id) {
         return fileRepository.delete(id);
     }
 
+    @Override
     public List<File> findAll() {
         return fileRepository.findAll();
     }

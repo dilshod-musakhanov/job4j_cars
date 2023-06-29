@@ -10,7 +10,7 @@ import java.util.*;
 @Repository
 @AllArgsConstructor
 @Log4j
-public class CarRepository {
+public class HibCarRepository implements CarRepository {
     private final CrudRepository crudRepository;
 
     /**
@@ -18,6 +18,7 @@ public class CarRepository {
      * @param car Car
      * @return Optioonal Car or Empty Optional
      */
+    @Override
     public Optional<Car> save(Car car) {
         try {
             crudRepository.run(session -> session.save(car));
@@ -33,6 +34,7 @@ public class CarRepository {
      * @param car Car
      * @return boolean result
      */
+    @Override
     public boolean update(Car car) {
         try {
             crudRepository.run(session -> session.merge(car));
@@ -48,6 +50,7 @@ public class CarRepository {
      * @param id ID
      * @return boolean result
      */
+    @Override
     public boolean delete(int id) {
         try {
             crudRepository.run(
@@ -66,6 +69,7 @@ public class CarRepository {
      * @param id ID
      * @return Optional Car or Empty Optional
      */
+    @Override
     public Optional<Car> findById(int id) {
         try {
             return crudRepository.optional(
@@ -84,6 +88,7 @@ public class CarRepository {
      * Find all Cars
      * @return List of Cars or Empty List
      */
+    @Override
     public List<Car> findAll() {
         try {
             var allCars = crudRepository.query(

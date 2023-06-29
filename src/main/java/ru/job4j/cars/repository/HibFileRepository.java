@@ -10,7 +10,7 @@ import java.util.*;
 @Repository
 @AllArgsConstructor
 @Log4j
-public class FileRepository {
+public class HibFileRepository implements FileRepository {
     private final CrudRepository crudRepository;
 
     /**
@@ -18,6 +18,7 @@ public class FileRepository {
      * @param file File
      * @return Optional File or Empty Optional
      */
+    @Override
     public Optional<File> save(File file) {
         try {
             crudRepository.run(session -> session.persist(file));
@@ -33,6 +34,7 @@ public class FileRepository {
      * @param file File
      * @return boolean result
      */
+    @Override
     public boolean update(File file) {
         try {
             crudRepository.run(session -> session.merge(file));
@@ -48,6 +50,7 @@ public class FileRepository {
      * @param id ID
      * @return boolean result
      */
+    @Override
     public boolean delete(int id) {
         try {
             crudRepository.run(
@@ -66,6 +69,7 @@ public class FileRepository {
      * @param id ID
      * @return Optional File or Empty Optional
      */
+    @Override
     public Optional<File> findById(int id) {
         try {
             return crudRepository.optional(
@@ -84,6 +88,7 @@ public class FileRepository {
      * Find all Files
      * @return List of Files or Empty List
      */
+    @Override
     public List<File> findAll() {
         try {
             var allFiles = crudRepository.query(

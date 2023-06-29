@@ -13,7 +13,7 @@ import java.util.Optional;
 @Repository
 @AllArgsConstructor
 @Log4j
-public class BodyRepository {
+public class HibBodyRepository implements BodyRepository {
     private final CrudRepository crudRepository;
 
     /**
@@ -21,6 +21,7 @@ public class BodyRepository {
      * @param body Body
      * @return Optioonal Body or Empty Optional
      */
+    @Override
     public Optional<Body> save(Body body) {
         try {
             crudRepository.run(session -> session.persist(body));
@@ -36,6 +37,7 @@ public class BodyRepository {
      * @param body Body
      * @return boolean result
      */
+    @Override
     public boolean update(Body body) {
         try {
             crudRepository.run(session -> session.merge(body));
@@ -51,6 +53,7 @@ public class BodyRepository {
      * @param id ID
      * @return boolean result
      */
+    @Override
     public boolean delete(int id) {
         try {
             crudRepository.run(
@@ -69,6 +72,7 @@ public class BodyRepository {
      * @param id ID
      * @return Optional Body or Empty Optional
      */
+    @Override
     public Optional<Body> findById(int id) {
         try {
             return crudRepository.optional(
@@ -87,6 +91,7 @@ public class BodyRepository {
      * Find all Bodies
      * @return List of Bodies or Empty List
      */
+    @Override
     public List<Body> findAll() {
         try {
             var allBodies = crudRepository.query(

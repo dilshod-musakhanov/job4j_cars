@@ -12,7 +12,7 @@ import java.util.*;
 @Repository
 @AllArgsConstructor
 @Log4j
-public class PostRepository {
+public class HibPostRepository implements PostRepository {
     private final CrudRepository crudRepository;
 
     /**
@@ -20,6 +20,7 @@ public class PostRepository {
      * @param post Post
      * @return Optional Post or Empty optional
      */
+    @Override
     public Optional<Post> save(Post post) {
         try {
             crudRepository.run(session -> session.save(post));
@@ -35,6 +36,7 @@ public class PostRepository {
      * @param post Post
      * @return boolean result
      */
+    @Override
     public boolean update(Post post) {
         try {
             crudRepository.run(session -> session.merge(post));
@@ -50,6 +52,7 @@ public class PostRepository {
      * @param id ID
      * @return boolean result
      */
+    @Override
     public boolean delete(int id) {
         try {
             crudRepository.run(
@@ -73,6 +76,7 @@ public class PostRepository {
      * @param id ID
      * @return Optional Post or Empty Optional
      */
+    @Override
     public Optional<Post> findById(int id) {
         try {
             return crudRepository.optional(
@@ -90,6 +94,7 @@ public class PostRepository {
      * Find all Posts
      * @return List of Post
      */
+    @Override
     public List<Post> findAll() {
         try {
             var allPosts = crudRepository.query(
@@ -107,6 +112,7 @@ public class PostRepository {
      * Find Posts created on the previous day
      * @return List of Posts or Empty List
      */
+    @Override
     public List<Post> findByCreatedInThreeLastDays() {
         try {
             LocalDateTime startOfDay = LocalDateTime.now().minusDays(2).with(LocalTime.MIN);
@@ -127,6 +133,7 @@ public class PostRepository {
      * @param brandName name
      * @return List of Posts or Empty List
      */
+    @Override
     public List<Post> findByBrandName(String brandName) {
         try {
             return crudRepository.query(
@@ -144,6 +151,7 @@ public class PostRepository {
      * Find Post with Photo
      * @return List of Posts or Empty List
      */
+    @Override
     public List<Post> findWithPhotos() {
         try {
             return crudRepository.query(
@@ -161,6 +169,7 @@ public class PostRepository {
      * @param id Post ID
      * @return boolean result
      */
+    @Override
     public boolean updateState(int id) {
         try {
             crudRepository.run(
@@ -179,6 +188,7 @@ public class PostRepository {
      * @param carNew Condition
      * @return List of Posts or Empty List
      */
+    @Override
     public List<Post> byCondition(boolean carNew) {
         try {
             return crudRepository.query(
@@ -197,6 +207,7 @@ public class PostRepository {
      * @param fuelType Fuel type
      * @return List of Posts or Empty List
      */
+    @Override
     public List<Post> byFuelType(String fuelType) {
         try {
             return crudRepository.query(
@@ -215,6 +226,7 @@ public class PostRepository {
      * @param carSold Status
      * @return List of Posts or Empty List
      */
+    @Override
     public List<Post> byStatus(boolean carSold) {
         try {
             return crudRepository.query(

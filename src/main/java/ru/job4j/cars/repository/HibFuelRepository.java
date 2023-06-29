@@ -13,7 +13,7 @@ import java.util.Optional;
 @Repository
 @AllArgsConstructor
 @Log4j
-public class FuelRepository {
+public class HibFuelRepository implements FuelRepository {
     private final CrudRepository crudRepository;
 
     /**
@@ -21,6 +21,7 @@ public class FuelRepository {
      * @param fuel Fuel
      * @return Optioonal Fuel or Empty Optional
      */
+    @Override
     public Optional<Fuel> save(Fuel fuel) {
         try {
             crudRepository.run(session -> session.persist(fuel));
@@ -36,6 +37,7 @@ public class FuelRepository {
      * @param fuel Fuel
      * @return boolean result
      */
+    @Override
     public boolean update(Fuel fuel) {
         try {
             crudRepository.run(session -> session.merge(fuel));
@@ -51,6 +53,7 @@ public class FuelRepository {
      * @param id ID
      * @return boolean result
      */
+    @Override
     public boolean delete(int id) {
         try {
             crudRepository.run(
@@ -69,6 +72,7 @@ public class FuelRepository {
      * @param id ID
      * @return Optional Fuel or Empty Optional
      */
+    @Override
     public Optional<Fuel> findById(int id) {
         try {
             return crudRepository.optional(
@@ -87,6 +91,7 @@ public class FuelRepository {
      * Find all Fuel
      * @return List of Fuel or Empty List
      */
+    @Override
     public List<Fuel> findAll() {
         try {
             var allFuel = crudRepository.query(

@@ -10,7 +10,7 @@ import java.util.*;
 @Repository
 @AllArgsConstructor
 @Log4j
-public class UserRepository {
+public class HibUserRepository implements UserRepository {
     private final CrudRepository crudRepository;
 
     /**
@@ -18,6 +18,7 @@ public class UserRepository {
      * @param user User.
      * @return Optional User with id or Empty Optional.
      */
+    @Override
     public Optional<User> save(User user) {
         try {
             crudRepository.run(session -> session.save(user));
@@ -33,6 +34,7 @@ public class UserRepository {
      * @param user User.
      * @return boolean result
      */
+    @Override
     public boolean update(User user) {
         try {
             crudRepository.run(session -> session.merge(user));
@@ -48,6 +50,7 @@ public class UserRepository {
      * @param userId ID
      * @return boolean result
      */
+    @Override
     public boolean delete(int userId) {
         try {
             crudRepository.run(
@@ -65,6 +68,7 @@ public class UserRepository {
      * List of Users sorted by ID.
      * @return List of Users.
      */
+    @Override
     public List<User> findAllOrderById() {
         try {
             return crudRepository.query("FROM User ORDER BY id ASC", User.class);
@@ -79,6 +83,7 @@ public class UserRepository {
      * @param userId ID
      * @return Optional User or Empty Optional.
      */
+    @Override
     public Optional<User> findById(int userId) {
         try {
             return crudRepository.optional(
@@ -97,6 +102,7 @@ public class UserRepository {
      * @param key key
      * @return List of Users or Empty List.
      */
+    @Override
     public List<User> findByLikeName(String key) {
         String likePattern = String.format("%%%s%%", key);
        try {
@@ -116,6 +122,7 @@ public class UserRepository {
      * @param email email.
      * @return Optional User or Empty Optional.
      */
+    @Override
     public Optional<User> findByEmail(String email) {
         try {
             return crudRepository.optional(
@@ -135,6 +142,7 @@ public class UserRepository {
      * @param password Password
      * @return
      */
+    @Override
     public Optional<User> findByEmailAndPassword(String email, String password) {
         try {
             return crudRepository.optional(

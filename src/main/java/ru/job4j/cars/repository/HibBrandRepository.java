@@ -13,7 +13,7 @@ import java.util.Optional;
 @Repository
 @AllArgsConstructor
 @Log4j
-public class BrandRepository {
+public class HibBrandRepository implements BrandRepository {
     private final CrudRepository crudRepository;
 
     /**
@@ -21,6 +21,7 @@ public class BrandRepository {
      * @param brand Brand
      * @return Optioonal Brand or Empty Optional
      */
+    @Override
     public Optional<Brand> save(Brand brand) {
         try {
             crudRepository.run(session -> session.persist(brand));
@@ -36,6 +37,7 @@ public class BrandRepository {
      * @param brand Brand
      * @return boolean result
      */
+    @Override
     public boolean update(Brand brand) {
         try {
             crudRepository.run(session -> session.merge(brand));
@@ -51,6 +53,7 @@ public class BrandRepository {
      * @param id ID
      * @return boolean result
      */
+    @Override
     public boolean delete(int id) {
         try {
             crudRepository.run(
@@ -69,6 +72,7 @@ public class BrandRepository {
      * @param id ID
      * @return Optional Brand or Empty Optional
      */
+    @Override
     public Optional<Brand> findById(int id) {
         try {
             return crudRepository.optional(
@@ -87,6 +91,7 @@ public class BrandRepository {
      * Find all Brands
      * @return List of Brands or Empty List
      */
+    @Override
     public List<Brand> findAll() {
         try {
             var allBrands = crudRepository.query(

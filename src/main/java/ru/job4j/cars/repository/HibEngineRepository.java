@@ -10,7 +10,7 @@ import java.util.*;
 @Repository
 @AllArgsConstructor
 @Log4j
-public class EngineRepository {
+public class HibEngineRepository implements EngineRepository {
     private final CrudRepository crudRepository;
 
     /**
@@ -18,6 +18,7 @@ public class EngineRepository {
      * @param engine Engine
      * @return Optional Engine or Empty Optional
      */
+    @Override
     public Optional<Engine> save(Engine engine) {
         try {
             crudRepository.run(session -> session.persist(engine));
@@ -33,7 +34,8 @@ public class EngineRepository {
      * @param engine Engine
      * @return boolean result
      */
-   public boolean update(Engine engine) {
+    @Override
+    public boolean update(Engine engine) {
         try {
             crudRepository.run(session -> session.merge(engine));
             return true;
@@ -48,7 +50,8 @@ public class EngineRepository {
      * @param id ID
      * @return boolean result
      */
-   public boolean delete(int id) {
+    @Override
+    public boolean delete(int id) {
        try {
            crudRepository.run(
                    "DELETE Engine WHERE id = :fId",
@@ -66,6 +69,7 @@ public class EngineRepository {
      * @param id ID
      * @return Optional Engine or Empty Optional
      */
+    @Override
     public Optional<Engine> findById(int id) {
         try {
             return crudRepository.optional(
@@ -84,6 +88,7 @@ public class EngineRepository {
      * Find all Engines
      * @return List of Engines or Empty List
      */
+    @Override
     public List<Engine> findAll() {
         try {
             var allEngines = crudRepository.query(

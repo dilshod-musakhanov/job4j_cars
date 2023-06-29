@@ -11,7 +11,7 @@ import java.util.*;
 @Repository
 @AllArgsConstructor
 @Log4j
-public class OwnerRepository {
+public class HibOwnerRepository implements OwnerRepository {
     private final CrudRepository crudRepository;
 
     /**
@@ -19,6 +19,7 @@ public class OwnerRepository {
      * @param owner Owner
      * @return Optional Owner or Empty Optional
      */
+    @Override
     public Optional<Owner> save(Owner owner) {
         try {
             crudRepository.run(session -> session.persist(owner));
@@ -34,6 +35,7 @@ public class OwnerRepository {
      * @param owner Owner
      * @return boolean result
      */
+    @Override
     public boolean update(Owner owner) {
         try {
             crudRepository.run(session -> session.merge(owner));
@@ -49,6 +51,7 @@ public class OwnerRepository {
      * @param id ID
      * @return boolean result
      */
+    @Override
     public boolean delete(int id) {
         try {
             crudRepository.run(
@@ -67,6 +70,7 @@ public class OwnerRepository {
      * @param id ID
      * @return Optional Owner or Empty Optional
      */
+    @Override
     public Optional<Owner> findById(int id) {
         try {
             return crudRepository.optional(
@@ -86,6 +90,7 @@ public class OwnerRepository {
      * @param user User
      * @return Optional Owner or Empty Optional
      */
+    @Override
     public Optional<Owner> findByUser(User user) {
         try {
             return crudRepository.optional(
@@ -104,6 +109,7 @@ public class OwnerRepository {
      * Find all Owners
      * @return List of Owners or Empty List
      */
+    @Override
     public List<Owner> findAll() {
         try {
             var allOwners = crudRepository.query(

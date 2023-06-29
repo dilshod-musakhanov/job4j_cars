@@ -3,32 +3,37 @@ package ru.job4j.cars.service;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.job4j.cars.model.Fuel;
-import ru.job4j.cars.repository.FuelRepository;
+import ru.job4j.cars.repository.HibFuelRepository;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class FuelService {
-    private final FuelRepository fuelRepository;
+public class SimpleFuelService implements FuelService {
+    private final HibFuelRepository fuelRepository;
 
+    @Override
     public Optional<Fuel> save(Fuel fuel) {
         return fuelRepository.save(fuel);
     }
 
+    @Override
     public boolean update(Fuel fuel) {
         return fuelRepository.update(fuel);
     }
 
+    @Override
     public boolean delete(int id) {
         return fuelRepository.delete(id);
     }
 
+    @Override
     public Optional<Fuel> findById(int id) {
         return fuelRepository.findById(id);
     }
 
+    @Override
     public List<Fuel> findAll() {
         return fuelRepository.findAll();
     }

@@ -10,7 +10,7 @@ import java.util.*;
 @Repository
 @AllArgsConstructor
 @Log4j
-public class TransmissionRepository {
+public class HibTransmissionRepository implements TransmissionRepository {
     private final CrudRepository crudRepository;
 
     /**
@@ -18,6 +18,7 @@ public class TransmissionRepository {
      * @param transmission Transmission
      * @return Optional Transmission or Empty Optional
      */
+    @Override
     public Optional<Transmission> save(Transmission transmission) {
         try {
             crudRepository.run(session -> session.persist(transmission));
@@ -34,6 +35,7 @@ public class TransmissionRepository {
      * @param transmission Transmission
      * @return boolean result
      */
+    @Override
     public boolean update(Transmission transmission) {
         try {
             crudRepository.run(session -> session.merge(transmission));
@@ -49,6 +51,7 @@ public class TransmissionRepository {
      * @param id ID
      * @return boolean result
      */
+    @Override
     public boolean delete(int id) {
         try {
             crudRepository.run(
@@ -67,6 +70,7 @@ public class TransmissionRepository {
      * @param id ID
      * @return Optional Transmission or Empty Optional
      */
+    @Override
     public Optional<Transmission> findById(int id) {
         try {
             return crudRepository.optional(
@@ -85,6 +89,7 @@ public class TransmissionRepository {
      * Find all Transmissions
      * @return List of Transmissions or Empty List
      */
+    @Override
     public List<Transmission> findAll() {
         try {
             var allTransmissions = crudRepository.query(

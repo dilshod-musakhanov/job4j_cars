@@ -11,7 +11,7 @@ import java.util.Optional;
 @Repository
 @AllArgsConstructor
 @Log4j
-public class PriceHistoryRepository {
+public class HibPriceHistoryRepository implements PriceHistoryRepository {
     private final CrudRepository crudRepository;
 
     /**
@@ -19,6 +19,7 @@ public class PriceHistoryRepository {
      * @param priceHistory PriceHistory
      * @return Optional PriceHistory or Empty Optional
      */
+    @Override
     public Optional<PriceHistory> save(PriceHistory priceHistory) {
         try {
             crudRepository.run(session -> session.persist(priceHistory));
@@ -34,6 +35,7 @@ public class PriceHistoryRepository {
      * @param priceHistory PriceHistory
      * @return boolean result
      */
+    @Override
     public boolean update(PriceHistory priceHistory) {
         try {
             crudRepository.run(session -> session.merge(priceHistory));
@@ -49,6 +51,7 @@ public class PriceHistoryRepository {
      * @param id ID
      * @return boolean result
      */
+    @Override
     public boolean delete(int id) {
         try {
             crudRepository.query(
@@ -68,6 +71,7 @@ public class PriceHistoryRepository {
      * @param id ID
      * @return Optional PriceHistory or Empty Optional
      */
+    @Override
     public Optional<PriceHistory> findById(int id) {
         try {
             crudRepository.optional(
