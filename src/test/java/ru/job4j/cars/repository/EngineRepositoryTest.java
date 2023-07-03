@@ -7,14 +7,14 @@ import org.junit.jupiter.api.Test;
 import ru.job4j.cars.model.Engine;
 import ru.job4j.cars.util.UtilRepository;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
-
 import java.util.List;
 import java.util.Optional;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class EngineRepositoryTest {
+class EngineRepositoryTest {
     private final SessionFactory sf = UtilRepository.getSessionFactory();
     private final HibEngineRepository engineRepository = new HibEngineRepository(UtilRepository.getCrudRepository());
 
@@ -28,6 +28,10 @@ public class EngineRepositoryTest {
         } catch (Exception e) {
             session.getTransaction().rollback();
         } finally {
+            List<Engine> engines = engineRepository.findAll();
+            for (Engine e : engines) {
+                engineRepository.delete(e.getId());
+            }
             session.close();
         }
     }
@@ -42,7 +46,6 @@ public class EngineRepositoryTest {
         assertThat(result.get().getName(), is(engine.getName()));
     }
 
-    @Test
     public void whenUpdateEngineThenGetUpdatedEngine() {
         var engine = new Engine();
         engine.setName("test1");
@@ -75,13 +78,20 @@ public class EngineRepositoryTest {
     }
 
     @Test
-    public void whenFindAllThenGetListOfEngines() {
+    public void whenFindAllThenGetListOfSameEngines() {
+        List<Engine> engines = engineRepository.findAll();
+        for (Engine e : engines) {
+            engineRepository.delete(e.getId());
+        }
         var engine1 = new Engine();
         engine1.setName("test1");
         var engine2 = new Engine();
         engine2.setName("test2");
         engineRepository.save(engine1);
         engineRepository.save(engine2);
-        assertThat(engineRepository.findAll(), is(List.of(engine1, engine2)));
+        List<Engine> result = engineRepository.findAll();
+        List<Engine> expected = List.of(engine1, engine2);
+        assertThat(result, is(expected));
     }
+
 }
