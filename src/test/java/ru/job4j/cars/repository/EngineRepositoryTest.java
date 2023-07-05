@@ -10,9 +10,7 @@ import ru.job4j.cars.util.UtilRepository;
 import java.util.List;
 import java.util.Optional;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.*;
 
 class EngineRepositoryTest {
     private final SessionFactory sf = UtilRepository.getSessionFactory();
@@ -28,10 +26,6 @@ class EngineRepositoryTest {
         } catch (Exception e) {
             session.getTransaction().rollback();
         } finally {
-            List<Engine> engines = engineRepository.findAll();
-            for (Engine e : engines) {
-                engineRepository.delete(e.getId());
-            }
             session.close();
         }
     }
@@ -43,9 +37,10 @@ class EngineRepositoryTest {
         engineRepository.save(engine);
         int id = engine.getId();
         var result = engineRepository.findById(id);
-        assertThat(result.get().getName(), is(engine.getName()));
+        assertThat(result.get().getName()).isEqualTo(engine.getName());
     }
 
+    @Test
     public void whenUpdateEngineThenGetUpdatedEngine() {
         var engine = new Engine();
         engine.setName("test1");
@@ -54,7 +49,7 @@ class EngineRepositoryTest {
         int id = engine.getId();
         engineRepository.update(engine);
         var result = engineRepository.findById(id);
-        assertThat(result.get().getName(), is(engine.getName()));
+        assertThat(result.get().getName()).isEqualTo(engine.getName());
     }
 
     @Test
@@ -64,7 +59,7 @@ class EngineRepositoryTest {
         engineRepository.save(engine);
         int id = engine.getId();
         engineRepository.delete(id);
-        assertThat(engineRepository.findById(id), is(Optional.empty()));
+        assertThat(engineRepository.findById(id)).isEqualTo(Optional.empty());
     }
 
     @Test
@@ -74,15 +69,11 @@ class EngineRepositoryTest {
         engineRepository.save(engine);
         int id = engine.getId();
         var result = engineRepository.findById(id);
-        assertThat(engine, is(result.get()));
+        assertThat(engine).isEqualTo(result.get());
     }
 
     @Test
     public void whenFindAllThenGetListOfSameEngines() {
-        List<Engine> engines = engineRepository.findAll();
-        for (Engine e : engines) {
-            engineRepository.delete(e.getId());
-        }
         var engine1 = new Engine();
         engine1.setName("test1");
         var engine2 = new Engine();
@@ -91,7 +82,7 @@ class EngineRepositoryTest {
         engineRepository.save(engine2);
         List<Engine> result = engineRepository.findAll();
         List<Engine> expected = List.of(engine1, engine2);
-        assertThat(result, is(expected));
+        assertThat(result).isEqualTo(expected);
     }
 
 }
