@@ -2,6 +2,7 @@ package ru.job4j.cars.repository;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.job4j.cars.util.UtilModels;
@@ -13,12 +14,35 @@ import static org.assertj.core.api.Assertions.*;
 
 
 public class FileRepositoryTest {
-    private final SessionFactory sf = UtilRepository.getSessionFactory();
+    private static final SessionFactory SF = UtilRepository.getSessionFactory();
     private final HibFileRepository fileRepository = new HibFileRepository(UtilRepository.getCrudRepository());
 
     @BeforeEach
     public void wipeTable() {
-        Session session = sf.openSession();
+        Session session = SF.openSession();
+        try {
+            session.beginTransaction();
+            session.createQuery("DELETE FROM File").executeUpdate();
+            session.createQuery("DELETE FROM Post").executeUpdate();
+            session.createQuery("DELETE FROM Car").executeUpdate();
+            session.createQuery("DELETE FROM Owner").executeUpdate();
+            session.createQuery("DELETE FROM User").executeUpdate();
+            session.createQuery("DELETE FROM Engine").executeUpdate();
+            session.createQuery("DELETE FROM Body").executeUpdate();
+            session.createQuery("DELETE FROM Brand").executeUpdate();
+            session.createQuery("DELETE FROM Fuel").executeUpdate();
+            session.createQuery("DELETE FROM Transmission").executeUpdate();
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+    }
+
+    @AfterAll
+    public static void wipeTableAfterAll() {
+        Session session = SF.openSession();
         try {
             session.beginTransaction();
             session.createQuery("DELETE FROM File").executeUpdate();
