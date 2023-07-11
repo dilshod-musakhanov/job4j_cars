@@ -10,7 +10,7 @@ import java.util.*;
 @Repository
 @AllArgsConstructor
 @Log4j
-public class HibTransmissionRepository implements TransmissionRepository {
+public class HibernateTransmissionRepository implements TransmissionRepository {
     private final CrudRepository crudRepository;
 
     /**

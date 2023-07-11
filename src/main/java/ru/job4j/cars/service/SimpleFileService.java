@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import ru.job4j.cars.dto.FileDto;
 import ru.job4j.cars.model.File;
-import ru.job4j.cars.repository.HibFileRepository;
+import ru.job4j.cars.repository.HibernateFileRepository;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -14,10 +14,10 @@ import java.util.*;
 
 @Service
 public class SimpleFileService implements FileService {
-    private final HibFileRepository fileRepository;
+    private final HibernateFileRepository fileRepository;
     private final String storageDirectory;
 
-    public SimpleFileService(HibFileRepository fileRepository,
+    public SimpleFileService(HibernateFileRepository fileRepository,
                              @Value("${file.directory}") String storageDirectory) {
         this.fileRepository = fileRepository;
         this.storageDirectory = storageDirectory;

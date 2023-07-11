@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.*;
 
 public class CarRepositoryTest {
     private static final SessionFactory SF = UtilRepository.getSessionFactory();
-    private final HibCarRepository carRepository = new HibCarRepository(UtilRepository.getCrudRepository());
+    private final HibernateCarRepository carRepository = new HibernateCarRepository(UtilRepository.getCrudRepository());
 
     @BeforeEach
     public void wipeTable() {

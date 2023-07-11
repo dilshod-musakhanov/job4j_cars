@@ -15,7 +15,7 @@ import static org.hamcrest.Matchers.is;
 
 public class OwnerRepositoryTest {
     private final SessionFactory sf = UtilRepository.getSessionFactory();
-    private final HibOwnerRepository ownerRepository = new HibOwnerRepository(UtilRepository.getCrudRepository());
+    private final HibernateOwnerRepository ownerRepository = new HibernateOwnerRepository(UtilRepository.getCrudRepository());
 
     @BeforeEach
     public void wipeTable() {

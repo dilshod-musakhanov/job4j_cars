@@ -30,8 +30,8 @@ public class UserController {
         if (optionalUser.isEmpty()) {
             model.addAttribute(
                     "message",
-                    "An account already exists. Please use log in option");
-            return "error/404";
+                    "Invalid input so try sign up again! Or an account might already exist. Please use log in option then!");
+            return "user/add";
         }
         return "redirect:/users/loginForm";
     }
@@ -48,8 +48,8 @@ public class UserController {
         if (optionalUser.isEmpty()) {
             model.addAttribute(
                     "message",
-                    "Incorrect input details or sign up first");
-            return "error/404";
+                    "Incorrect input details so try to log in again! Or account might not exist so try to sign up then!");
+            return "user/login";
         }
         HttpSession session = request.getSession();
         session.setAttribute("user", optionalUser.get());

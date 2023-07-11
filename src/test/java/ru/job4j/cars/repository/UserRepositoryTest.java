@@ -15,7 +15,7 @@ import static org.assertj.core.api.Assertions.*;
 
 public class UserRepositoryTest {
     private final SessionFactory sf = UtilRepository.getSessionFactory();
-    private final HibUserRepository userRepository = new HibUserRepository(UtilRepository.getCrudRepository());
+    private final HibernateUserRepository userRepository = new HibernateUserRepository(UtilRepository.getCrudRepository());
 
     @BeforeEach
     public void wipeTable() {

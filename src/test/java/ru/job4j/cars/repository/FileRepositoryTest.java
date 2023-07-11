@@ -15,7 +15,7 @@ import static org.assertj.core.api.Assertions.*;
 
 public class FileRepositoryTest {
     private static final SessionFactory SF = UtilRepository.getSessionFactory();
-    private final HibFileRepository fileRepository = new HibFileRepository(UtilRepository.getCrudRepository());
+    private final HibernateFileRepository fileRepository = new HibernateFileRepository(UtilRepository.getCrudRepository());
 
     @BeforeEach
     public void wipeTable() {

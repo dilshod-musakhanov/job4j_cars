@@ -11,7 +11,7 @@ import java.util.*;
 @Repository
 @AllArgsConstructor
 @Log4j
-public class HibOwnerRepository implements OwnerRepository {
+public class HibernateOwnerRepository implements OwnerRepository {
     private final CrudRepository crudRepository;
 
     /**

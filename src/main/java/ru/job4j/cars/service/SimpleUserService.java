@@ -3,7 +3,7 @@ package ru.job4j.cars.service;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.job4j.cars.model.User;
-import ru.job4j.cars.repository.HibUserRepository;
+import ru.job4j.cars.repository.HibernateUserRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,7 +12,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class SimpleUserService implements UserService {
 
-    private final HibUserRepository userRepository;
+    private final HibernateUserRepository userRepository;
 
     @Override
     public Optional<User> save(User user) {

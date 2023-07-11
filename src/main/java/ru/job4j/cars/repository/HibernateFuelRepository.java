@@ -13,7 +13,7 @@ import java.util.Optional;
 @Repository
 @AllArgsConstructor
 @Log4j
-public class HibFuelRepository implements FuelRepository {
+public class HibernateFuelRepository implements FuelRepository {
     private final CrudRepository crudRepository;
 
     /**

@@ -74,6 +74,11 @@
     <div>
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                <div th:if="${message != null}" class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <h4 class="alert-heading">Oops!</h4>
+                    <p class="text" th:text="${message}"></p>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
                 <form th:action="@{/users/login}" method="POST">
                     <div class="text-center mb-3">
                         <h5>PLEASE LOG IN</h5>

@@ -11,7 +11,7 @@ import java.util.Optional;
 @Repository
 @AllArgsConstructor
 @Log4j
-public class HibPriceHistoryRepository implements PriceHistoryRepository {
+public class HibernatePriceHistoryRepository implements PriceHistoryRepository {
     private final CrudRepository crudRepository;
 
     /**

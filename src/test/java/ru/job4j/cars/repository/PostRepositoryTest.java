@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.*;
 
 public class PostRepositoryTest {
     private static final SessionFactory SF = UtilRepository.getSessionFactory();
-    private final HibPostRepository postRepository = new HibPostRepository(UtilRepository.getCrudRepository());
+    private final HibernatePostRepository postRepository = new HibernatePostRepository(UtilRepository.getCrudRepository());
 
     @BeforeEach
     public void wipeTable() {

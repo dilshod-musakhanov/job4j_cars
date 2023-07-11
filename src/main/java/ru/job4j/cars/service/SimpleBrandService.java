@@ -3,7 +3,7 @@ package ru.job4j.cars.service;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.job4j.cars.model.Brand;
-import ru.job4j.cars.repository.HibBrandRepository;
+import ru.job4j.cars.repository.HibernateBrandRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,7 +11,7 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class SimpleBrandService implements BrandService {
-    private final HibBrandRepository brandRepository;
+    private final HibernateBrandRepository brandRepository;
 
     @Override
     public Optional<Brand> save(Brand brand) {

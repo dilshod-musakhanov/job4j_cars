@@ -3,7 +3,7 @@ package ru.job4j.cars.service;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.job4j.cars.model.Engine;
-import ru.job4j.cars.repository.HibEngineRepository;
+import ru.job4j.cars.repository.HibernateEngineRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,7 +11,7 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class SimpleEngineService implements EngineService {
-    private final HibEngineRepository engineRepository;
+    private final HibernateEngineRepository engineRepository;
 
     @Override
     public Optional<Engine> save(Engine engine) {

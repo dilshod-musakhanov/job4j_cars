@@ -3,14 +3,14 @@ package ru.job4j.cars.service;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.job4j.cars.model.PriceHistory;
-import ru.job4j.cars.repository.HibPriceHistoryRepository;
+import ru.job4j.cars.repository.HibernatePriceHistoryRepository;
 
 import java.util.Optional;
 
 @Service
 @AllArgsConstructor
 public class SimplePriceHistoryService implements PriceHistoryService {
-    private final HibPriceHistoryRepository priceHistoryRepository;
+    private final HibernatePriceHistoryRepository priceHistoryRepository;
 
     @Override
     public Optional<PriceHistory> save(PriceHistory priceHistory) {

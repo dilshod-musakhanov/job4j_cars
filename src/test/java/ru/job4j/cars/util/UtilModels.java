@@ -7,16 +7,16 @@ import ru.job4j.cars.repository.*;
  * Utility class for creating test models.
  */
 public final class UtilModels {
-    private static final HibEngineRepository ENGINE_REPOSITORY = new HibEngineRepository(UtilRepository.getCrudRepository());
-    private static final HibBodyRepository BODY_REPOSITORY = new HibBodyRepository(UtilRepository.getCrudRepository());
-    private static final HibBrandRepository BRAND_REPOSITORY = new HibBrandRepository(UtilRepository.getCrudRepository());
-    private static final HibFuelRepository FUEL_REPOSITORY = new HibFuelRepository(UtilRepository.getCrudRepository());
-    private static final HibTransmissionRepository TRANSMISSION_REPOSITORY = new HibTransmissionRepository(UtilRepository.getCrudRepository());
-    private static final HibUserRepository USER_REPOSITORY = new HibUserRepository(UtilRepository.getCrudRepository());
-    private static final HibOwnerRepository OWNER_REPOSITORY = new HibOwnerRepository(UtilRepository.getCrudRepository());
-    private static final HibCarRepository CAR_REPOSITORY = new HibCarRepository(UtilRepository.getCrudRepository());
-    private static final HibFileRepository FILE_REPOSITORY = new HibFileRepository(UtilRepository.getCrudRepository());
-    private static final HibPostRepository POST_REPOSITORY = new HibPostRepository(UtilRepository.getCrudRepository());
+    private static final HibernateEngineRepository ENGINE_REPOSITORY = new HibernateEngineRepository(UtilRepository.getCrudRepository());
+    private static final HibernateBodyRepository BODY_REPOSITORY = new HibernateBodyRepository(UtilRepository.getCrudRepository());
+    private static final HibernateBrandRepository BRAND_REPOSITORY = new HibernateBrandRepository(UtilRepository.getCrudRepository());
+    private static final HibernateFuelRepository FUEL_REPOSITORY = new HibernateFuelRepository(UtilRepository.getCrudRepository());
+    private static final HibernateTransmissionRepository TRANSMISSION_REPOSITORY = new HibernateTransmissionRepository(UtilRepository.getCrudRepository());
+    private static final HibernateUserRepository USER_REPOSITORY = new HibernateUserRepository(UtilRepository.getCrudRepository());
+    private static final HibernateOwnerRepository OWNER_REPOSITORY = new HibernateOwnerRepository(UtilRepository.getCrudRepository());
+    private static final HibernateCarRepository CAR_REPOSITORY = new HibernateCarRepository(UtilRepository.getCrudRepository());
+    private static final HibernateFileRepository FILE_REPOSITORY = new HibernateFileRepository(UtilRepository.getCrudRepository());
+    private static final HibernatePostRepository POST_REPOSITORY = new HibernatePostRepository(UtilRepository.getCrudRepository());
 
     private UtilModels() {
 

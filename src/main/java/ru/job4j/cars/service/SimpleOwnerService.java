@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.job4j.cars.model.Owner;
 import ru.job4j.cars.model.User;
-import ru.job4j.cars.repository.HibOwnerRepository;
+import ru.job4j.cars.repository.HibernateOwnerRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,7 +12,7 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class SimpleOwnerService implements OwnerService {
-    private final HibOwnerRepository ownerRepository;
+    private final HibernateOwnerRepository ownerRepository;
 
     @Override
     public Optional<Owner> save(Owner owner) {

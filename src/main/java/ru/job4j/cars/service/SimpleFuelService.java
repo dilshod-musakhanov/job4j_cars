@@ -3,7 +3,7 @@ package ru.job4j.cars.service;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.job4j.cars.model.Fuel;
-import ru.job4j.cars.repository.HibFuelRepository;
+import ru.job4j.cars.repository.HibernateFuelRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,7 +11,7 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class SimpleFuelService implements FuelService {
-    private final HibFuelRepository fuelRepository;
+    private final HibernateFuelRepository fuelRepository;
 
     @Override
     public Optional<Fuel> save(Fuel fuel) {
