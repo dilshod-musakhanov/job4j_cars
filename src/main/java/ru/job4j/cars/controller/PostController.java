@@ -21,8 +21,6 @@ public class PostController {
     private final FuelService fuelService;
     private final TransmissionService transmissionService;
     private final EngineService engineService;
-    private final OwnerService ownerService;
-    private final FileService fileService;
     private final CarService carService;
 
     @GetMapping({"/", "/index"})
@@ -45,36 +43,7 @@ public class PostController {
     @PostMapping("/create")
     public String createPost(Model model, @ModelAttribute PostDto postDto, @SessionAttribute User user, @RequestPart("files") List<MultipartFile> files) {
         try {
-            var owner = ownerService.findByUser(user).orElseGet(() -> {
-                Owner newOwner = new Owner();
-                newOwner.setUser(user);
-                newOwner.setName(user.getName());
-                newOwner.setPhone(postDto.getOwnerPhone());
-                ownerService.save(newOwner);
-                return newOwner;
-            });
-            var car = new Car();
-            car.setName(postDto.getCarName());
-            car.setBody(bodyService.findById(postDto.getBodyId()).get());
-            car.setBrand(brandService.findById(postDto.getBrandId()).get());
-            car.setFuel(fuelService.findById(postDto.getFuelId()).get());
-            car.setTransmission(transmissionService.findById(postDto.getTransmissionId()).get());
-            car.setEngine(engineService.findById(postDto.getEngineId()).get());
-            car.setProduced(postDto.getProduced());
-            car.setOwner(owner);
-            car.getOwners().add(owner);
-            carService.save(car).get();
-            var post = new Post();
-            post.setDescription(postDto.getDescription());
-            post.setPrice(postDto.getPrice());
-            post.setCarNew(postDto.isCarNew());
-            post.setLocation(postDto.getLocation());
-            post.setMileage(postDto.getMileage());
-            post.setCar(car);
-            post.setUser(user);
-            List<File> photos = fileService.convertMultipartFileToFile(files);
-            post.setFiles(photos);
-            postService.save(post);
+            postService.toPost(postDto, user, files);
             model.addAttribute("message", "New post added!");
             return "success/successPost";
         } catch (Exception e) {
@@ -108,12 +77,14 @@ public class PostController {
 
     @GetMapping("/delete/{id}")
     public String deletePost(Model model, @PathVariable int id, @SessionAttribute User user) {
+        var carId = postService.findById(id).get().getCar().getId();
         var isDeleted = postService.delete(id);
         model.addAttribute("user", user);
         if (!isDeleted) {
             model.addAttribute("message", "Error in deleting post. Try again.");
             return "error/failedPost";
         }
+        carService.delete(carId);
         model.addAttribute("message", "Your post deleted successfully");
         return "success/successPost";
     }

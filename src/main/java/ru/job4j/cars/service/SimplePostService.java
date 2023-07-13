@@ -2,9 +2,14 @@ package ru.job4j.cars.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import ru.job4j.cars.dto.PostDto;
+import ru.job4j.cars.mapper.PostMapper;
 import ru.job4j.cars.model.Post;
+import ru.job4j.cars.model.User;
 import ru.job4j.cars.repository.HibernatePostRepository;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,6 +17,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class SimplePostService implements PostService {
     private final HibernatePostRepository postRepository;
+    private final PostMapper postMapper;
 
     @Override
     public Optional<Post> save(Post post) {
@@ -72,5 +78,11 @@ public class SimplePostService implements PostService {
     @Override
     public List<Post> byStatus(boolean carSold) {
         return postRepository.byStatus(carSold);
+    }
+
+    @Override
+    public void toPost(PostDto postDto, User user, List<MultipartFile> files) throws IOException {
+        var post = postMapper.toPost(postDto, user, files);
+        postRepository.save(post);
     }
 }
