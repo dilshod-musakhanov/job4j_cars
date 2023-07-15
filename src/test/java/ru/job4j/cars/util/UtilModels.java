@@ -65,16 +65,13 @@ public final class UtilModels {
         return FUEL_REPOSITORY.save(fuel).get();
     }
 
-//    /**
-//     * Creates and saves a test Transmission model.
-//     * @param name the name of the Transmission
-//     * @return the created Transmission
-//     */
-//    public static Transmission getTransmissionTest(String name) {
-//        var transmission = new Transmission();
-//        transmission.setName("transmission");
-//        return TRANSMISSION_REPOSITORY.save(transmission).get();
-//    }
+    /**
+    public static Transmission getTransmissionTest(String name) {
+        var transmission = new Transmission();
+        transmission.setName("transmission");
+        return TRANSMISSION_REPOSITORY.save(transmission).get();
+    }
+    **/
 
     /**
      * Creates a User model.
