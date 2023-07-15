@@ -1,24 +1,16 @@
 package ru.job4j.cars.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.EqualsAndHashCode.Include;
-import lombok.NoArgsConstructor;
+public enum Transmission {
+    AUTOMATIC("Automatic"),
+    MANUAL("Manual");
 
-import javax.persistence.*;
+    private final String value;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Entity
-@Table(name = "transmission")
-public class Transmission {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Include
-    private int id;
+    Transmission(String value) {
+        this.value = value;
+    }
 
-    private String name;
+    public String getName() {
+        return value;
+    }
 }

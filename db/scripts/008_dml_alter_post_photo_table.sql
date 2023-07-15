@@ -1,1 +1,0 @@
-ALTER TABLE post_photo ALTER COLUMN auto_post_id DROP NOT NULL;

@@ -34,8 +34,8 @@ public class Car {
     @JoinColumn(name = "brand_id", foreignKey = @ForeignKey(name = "BRAND_ID_FK"))
     private Brand brand;
 
-    @ManyToOne
-    @JoinColumn(name = "transmission_id", foreignKey = @ForeignKey(name = "TRANSMISSION_ID_FK"))
+    @Enumerated(EnumType.STRING)
+    @Column(name = "transmission")
     private Transmission transmission;
 
     @ManyToOne

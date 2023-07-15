@@ -49,9 +49,6 @@
                         </ul>
                     </li>
                     <li class="nav-item" th:if="${user.name != 'Guest'}">
-                        <a class="nav-link" href="#">Category</a>
-                    </li>
-                    <li class="nav-item" th:if="${user.name != 'Guest'}">
                         <a class="nav-link" th:href="@{/posts/addForm}">Add Post</a>
                     </li>
                     <li>
@@ -112,10 +109,11 @@
                 </select>
             </div>
             <div class="col-md-4">
-                <label for="transmission.id" class="form-label">Transmission</label>
-                <select class="form-control" id="transmission.id" name="transmissionId" required>
+                <label for="transmission" class="form-label">Transmission</label>
+                <select class="form-control" id="transmission" name="transmission" required>
                     <option hidden disabled selected value></option>
-                    <option th:each="transmission : ${transmissions}" th:value="${transmission.id}" th:text="${transmission.name}"></option>
+                    <option value="AUTOMATIC">Automatic</option>
+                    <option value="MANUAL">Manual</option>
                 </select>
             </div>
             <div class="col-md-3">

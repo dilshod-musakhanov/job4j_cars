@@ -19,7 +19,6 @@ public class PostController {
     private final BrandService brandService;
     private final BodyService bodyService;
     private final FuelService fuelService;
-    private final TransmissionService transmissionService;
     private final EngineService engineService;
     private final CarService carService;
 
@@ -36,7 +35,6 @@ public class PostController {
         model.addAttribute("bodies", bodyService.findAll());
         model.addAttribute("fuel", fuelService.findAll());
         model.addAttribute("engines", engineService.findAll());
-        model.addAttribute("transmissions", transmissionService.findAll());
         return "post/add";
     }
 

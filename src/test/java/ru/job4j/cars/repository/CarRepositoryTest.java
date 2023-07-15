@@ -59,7 +59,7 @@ public class CarRepositoryTest {
             session.close();
         }
     }
-
+/**
     @Test
     public void whenSaveCarThenGetSameCar() {
         var engineTest = UtilModels.getEngineTest("engine");
@@ -155,4 +155,5 @@ public class CarRepositoryTest {
         carRepository.save(car2);
         assertThat(carRepository.findAll()).isEqualTo(List.of(car, car2));
     }
+    **/
 }

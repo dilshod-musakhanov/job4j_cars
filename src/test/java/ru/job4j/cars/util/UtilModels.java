@@ -11,7 +11,6 @@ public final class UtilModels {
     private static final HibernateBodyRepository BODY_REPOSITORY = new HibernateBodyRepository(UtilRepository.getCrudRepository());
     private static final HibernateBrandRepository BRAND_REPOSITORY = new HibernateBrandRepository(UtilRepository.getCrudRepository());
     private static final HibernateFuelRepository FUEL_REPOSITORY = new HibernateFuelRepository(UtilRepository.getCrudRepository());
-    private static final HibernateTransmissionRepository TRANSMISSION_REPOSITORY = new HibernateTransmissionRepository(UtilRepository.getCrudRepository());
     private static final HibernateUserRepository USER_REPOSITORY = new HibernateUserRepository(UtilRepository.getCrudRepository());
     private static final HibernateOwnerRepository OWNER_REPOSITORY = new HibernateOwnerRepository(UtilRepository.getCrudRepository());
     private static final HibernateCarRepository CAR_REPOSITORY = new HibernateCarRepository(UtilRepository.getCrudRepository());
@@ -66,16 +65,16 @@ public final class UtilModels {
         return FUEL_REPOSITORY.save(fuel).get();
     }
 
-    /**
-     * Creates and saves a test Transmission model.
-     * @param name the name of the Transmission
-     * @return the created Transmission
-     */
-    public static Transmission getTransmissionTest(String name) {
-        var transmission = new Transmission();
-        transmission.setName("transmission");
-        return TRANSMISSION_REPOSITORY.save(transmission).get();
-    }
+//    /**
+//     * Creates and saves a test Transmission model.
+//     * @param name the name of the Transmission
+//     * @return the created Transmission
+//     */
+//    public static Transmission getTransmissionTest(String name) {
+//        var transmission = new Transmission();
+//        transmission.setName("transmission");
+//        return TRANSMISSION_REPOSITORY.save(transmission).get();
+//    }
 
     /**
      * Creates a User model.

@@ -15,7 +15,6 @@ public class PostMapper {
     private final BrandService brandService;
     private final BodyService bodyService;
     private final FuelService fuelService;
-    private final TransmissionService transmissionService;
     private final EngineService engineService;
     private final CarService carService;
     private final FileService fileService;
@@ -25,7 +24,6 @@ public class PostMapper {
             BrandService brandService,
             BodyService bodyService,
             FuelService fuelService,
-            TransmissionService transmissionService,
             EngineService engineService,
             CarService carService,
             FileService fileService
@@ -34,7 +32,6 @@ public class PostMapper {
         this.brandService = brandService;
         this.bodyService = bodyService;
         this.fuelService = fuelService;
-        this.transmissionService = transmissionService;
         this.engineService = engineService;
         this.carService = carService;
         this.fileService = fileService;
@@ -54,7 +51,7 @@ public class PostMapper {
         car.setBody(bodyService.findById(postDto.getBodyId()).get());
         car.setBrand(brandService.findById(postDto.getBrandId()).get());
         car.setFuel(fuelService.findById(postDto.getFuelId()).get());
-        car.setTransmission(transmissionService.findById(postDto.getTransmissionId()).get());
+        car.setTransmission(Transmission.valueOf(postDto.getTransmission()));
         car.setEngine(engineService.findById(postDto.getEngineId()).get());
         car.setProduced(postDto.getProduced());
         car.setOwner(owner);

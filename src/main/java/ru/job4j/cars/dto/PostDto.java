@@ -15,7 +15,7 @@ public class PostDto {
     private int mileage;
     private int price;
     private int fuelId;
-    private int transmissionId;
+    private String transmission;
     private int produced;
     private int engineId;
     private String description;
