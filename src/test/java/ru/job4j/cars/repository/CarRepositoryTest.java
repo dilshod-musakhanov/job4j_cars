@@ -28,7 +28,6 @@ public class CarRepositoryTest {
             session.createQuery("DELETE FROM Body").executeUpdate();
             session.createQuery("DELETE FROM Brand").executeUpdate();
             session.createQuery("DELETE FROM Fuel").executeUpdate();
-            session.createQuery("DELETE FROM Transmission").executeUpdate();
             session.createQuery("DELETE FROM Owner").executeUpdate();
             session.createQuery("DELETE FROM User").executeUpdate();
             session.getTransaction().commit();
@@ -49,7 +48,6 @@ public class CarRepositoryTest {
             session.createQuery("DELETE FROM Body").executeUpdate();
             session.createQuery("DELETE FROM Brand").executeUpdate();
             session.createQuery("DELETE FROM Fuel").executeUpdate();
-            session.createQuery("DELETE FROM Transmission").executeUpdate();
             session.createQuery("DELETE FROM Owner").executeUpdate();
             session.createQuery("DELETE FROM User").executeUpdate();
             session.getTransaction().commit();
@@ -59,14 +57,14 @@ public class CarRepositoryTest {
             session.close();
         }
     }
-/**
+
     @Test
     public void whenSaveCarThenGetSameCar() {
         var engineTest = UtilModels.getEngineTest("engine");
         var bodyTest = UtilModels.getBodyTest("body");
         var brandTest = UtilModels.getBrandTest("brand");
         var fuelTest = UtilModels.getFuelTest("fuel");
-        var transmissionTest = UtilModels.getTransmissionTest("transmission");
+        var transmissionTest = UtilModels.getTransmissionTest();
         var user = UtilModels.createUser("user", "user@test.com", "password");
         var userTest = UtilModels.getUserTest(user);
         var owner = UtilModels.createOwner("owner", "123456", userTest);
@@ -81,7 +79,7 @@ public class CarRepositoryTest {
         var bodyTest = UtilModels.getBodyTest("body");
         var brandTest = UtilModels.getBrandTest("brand");
         var fuelTest = UtilModels.getFuelTest("fuel");
-        var transmissionTest = UtilModels.getTransmissionTest("transmission");
+        var transmissionTest = UtilModels.getTransmissionTest();
         var user = UtilModels.createUser("user", "user@test.com", "password");
         var userTest = UtilModels.getUserTest(user);
         var owner = UtilModels.createOwner("owner", "123456", userTest);
@@ -99,7 +97,7 @@ public class CarRepositoryTest {
         var bodyTest = UtilModels.getBodyTest("body");
         var brandTest = UtilModels.getBrandTest("brand");
         var fuelTest = UtilModels.getFuelTest("fuel");
-        var transmissionTest = UtilModels.getTransmissionTest("transmission");
+        var transmissionTest = UtilModels.getTransmissionTest();
         var user = UtilModels.createUser("user", "user@test.com", "password");
         var userTest = UtilModels.getUserTest(user);
         var owner = UtilModels.createOwner("owner", "123456", userTest);
@@ -116,7 +114,7 @@ public class CarRepositoryTest {
         var bodyTest = UtilModels.getBodyTest("body");
         var brandTest = UtilModels.getBrandTest("brand");
         var fuelTest = UtilModels.getFuelTest("fuel");
-        var transmissionTest = UtilModels.getTransmissionTest("transmission");
+        var transmissionTest = UtilModels.getTransmissionTest();
         var user = UtilModels.createUser("user", "user@test.com", "password");
         var userTest = UtilModels.getUserTest(user);
         var owner = UtilModels.createOwner("owner", "123456", userTest);
@@ -135,7 +133,7 @@ public class CarRepositoryTest {
         var bodyTest = UtilModels.getBodyTest("body");
         var brandTest = UtilModels.getBrandTest("brand");
         var fuelTest = UtilModels.getFuelTest("fuel");
-        var transmissionTest = UtilModels.getTransmissionTest("transmission");
+        var transmissionTest = UtilModels.getTransmissionTest();
         var user = UtilModels.createUser("user", "user@test.com", "password");
         var userTest = UtilModels.getUserTest(user);
         var owner = UtilModels.createOwner("owner", "123456", userTest);
@@ -146,7 +144,7 @@ public class CarRepositoryTest {
         var bodyTest2 = UtilModels.getBodyTest("body2");
         var brandTest2 = UtilModels.getBrandTest("brand2");
         var fuelTest2 = UtilModels.getFuelTest("fuel2");
-        var transmissionTest2 = UtilModels.getTransmissionTest("transmission2");
+        var transmissionTest2 = UtilModels.getTransmissionTest();
         var user2 = UtilModels.createUser("user2", "user2@test.com", "password2");
         var userTest2 = UtilModels.getUserTest(user2);
         var owner2 = UtilModels.createOwner("owner2", "1234562", userTest);
@@ -155,5 +153,5 @@ public class CarRepositoryTest {
         carRepository.save(car2);
         assertThat(carRepository.findAll()).isEqualTo(List.of(car, car2));
     }
-    **/
+
 }

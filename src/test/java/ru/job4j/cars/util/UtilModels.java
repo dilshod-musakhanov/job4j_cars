@@ -66,12 +66,13 @@ public final class UtilModels {
     }
 
     /**
-    public static Transmission getTransmissionTest(String name) {
-        var transmission = new Transmission();
-        transmission.setName("transmission");
-        return TRANSMISSION_REPOSITORY.save(transmission).get();
+     * Provides Transmission
+     * @return AUTOMATIC transmission
+     */
+    public static Transmission getTransmissionTest() {
+        return Transmission.AUTOMATIC;
     }
-    **/
+
 
     /**
      * Creates a User model.

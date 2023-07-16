@@ -44,7 +44,7 @@ class EngineRepositoryTest {
             session.close();
         }
     }
-/**
+
     @Test
     public void whenSaveNewEngineThenGetSameEngine() {
         var engine = new Engine();
@@ -99,5 +99,4 @@ class EngineRepositoryTest {
         List<Engine> expected = List.of(engine1, engine2);
         assertThat(result).isEqualTo(expected);
     }
-**/
 }

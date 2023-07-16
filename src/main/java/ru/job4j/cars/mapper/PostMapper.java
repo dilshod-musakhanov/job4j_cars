@@ -51,7 +51,8 @@ public class PostMapper {
         car.setBody(bodyService.findById(postDto.getBodyId()).get());
         car.setBrand(brandService.findById(postDto.getBrandId()).get());
         car.setFuel(fuelService.findById(postDto.getFuelId()).get());
-        car.setTransmission(Transmission.valueOf(postDto.getTransmission()));
+        Transmission transmission = Transmission.fromValue(postDto.getTransmission());
+        car.setTransmission(transmission);
         car.setEngine(engineService.findById(postDto.getEngineId()).get());
         car.setProduced(postDto.getProduced());
         car.setOwner(owner);
